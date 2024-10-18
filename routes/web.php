@@ -1,7 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+declare(strict_types=1);
 
-Route::get('/', function () {
-    return view('welcome');
-});
+use Livewire\Volt\Volt;
+
+Volt::route('/', 'index')->name('home');
+Volt::route('/processos-seletivos/{processo:slug}', 'processos-seletivos.show')->name('processos-seletivos.show');
