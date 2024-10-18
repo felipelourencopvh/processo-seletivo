@@ -28,7 +28,6 @@
                 class="dark:border-r-coal-100 border-r border-r-gray-200 bg-base-100 lg:bg-inherit"
             >
                 {{-- MENU --}}
-                <x-layouts.parts.menu />
             </x-slot>
 
             {{-- The `$slot` goes here --}}
