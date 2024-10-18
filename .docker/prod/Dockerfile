@@ -23,7 +23,7 @@ WORKDIR /var/www/html
 
 COPY --from=composer --chown=www-data:www-data /var/www/html .
 COPY --chown=www-data:www-data . .
-COPY docker/prod/http.conf /etc/nginx/site-opts.d/http.conf.template
+COPY .docker/prod/http.conf /etc/nginx/site-opts.d/http.conf.template
 USER www-data
 
 RUN composer dump-autoload -o
