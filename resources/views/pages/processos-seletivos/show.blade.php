@@ -14,7 +14,7 @@ new class () extends Component {
 <div>
     <x-header title="{{ $processo->titulo }}" progress-indicator separator />
 
-    <x-card title="Informações" shadow separator>
+    <x-card title="Informações" separator>
         <div class="card-body">
             {!! $processo->descricao !!}
         </div>
@@ -29,11 +29,11 @@ new class () extends Component {
             };
         @endphp
 
-        <x-card title="{{ $tipo }}" shadow class="mt-10">
+        <x-card title="{{ $tipo }}" separator class="mt-10">
             @foreach ($anexos as $anexo)
                 <x-list-item :item="$anexo" no-separator no-hover>
                     <x-slot:avatar>
-                        <x-icon name="feathericon.file-text" class="h-12 w-12" />
+                        <x-mary-icon name="feathericon.file-text" class="h-12 w-12" />
                     </x-slot>
                     <x-slot:value>{{ $anexo->nome }}</x-slot>
                     <x-slot:sub-value>

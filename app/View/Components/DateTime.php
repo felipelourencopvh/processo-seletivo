@@ -1,0 +1,9 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\View\Components;
+
+class DateTime extends \Mary\View\Components\DateTime
+{
+}

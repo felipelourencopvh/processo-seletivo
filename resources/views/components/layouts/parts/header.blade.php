@@ -61,6 +61,28 @@
                 @endforeach
             </ul>
         </div>
-        <div class="navbar-end"></div>
+        <div class="navbar-end">
+            @auth
+                <x-dropdown>
+                    <x-slot:trigger>
+                        <x-avatar :image="auth()->user()->avatar_url" class="!w-8 !rounded-lg" />
+                    </x-slot>
+                    <div class="w-64">
+                        <x-avatar
+                            :image="auth()->user()->avatar_url"
+                            :title="auth()->user()->name"
+                            :subtitle="auth()->user()->email"
+                            class="!w-10"
+                        />
+                        <x-menu-separator />
+                        {{-- <x-menu-item icon="o-user" :title="__('My Profile')" link="{{ route('my-profile') }}" /> --}}
+                        <x-menu-separator />
+                        <x-menu-item icon="o-power" :label="'Sair'" link="/logout" no-wire-navigate />
+                    </div>
+                </x-dropdown>
+            @else
+                <x-button class="btn-primary" label="Entrar" icon="o-user" link="/login" />
+            @endauth
+        </div>
     </div>
 </header>

@@ -14,8 +14,8 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\ToggleButtons;
 use Filament\Forms\Set;
+use Filament\Models\Contracts\HasName;
 use Filament\Support\Enums\Alignment;
 use FilamentTiptapEditor\TiptapEditor;
 use Illuminate\Database\Eloquent\Builder;
@@ -27,11 +27,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
-use Leandrocfe\FilamentPtbrFormFields\Money;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-class Processo extends Model
+class Processo extends Model implements HasName
 {
     use LogsActivity;
     use SoftDeletes;
@@ -119,34 +118,6 @@ class Processo extends Model
                                 ->addActionAlignment(Alignment::Start)
                                 ->addActionLabel('+ Anexos'),
                         ]),
-                    Tabs\Tab::make('Documentos Necessários')
-                        ->schema([
-                            Repeater::make('documentos')->label('Documentos Necessários')
-                                ->schema([
-                                    TextInput::make('documento')->label('Documento')
-                                        ->required()
-                                        ->live(onBlur: true),
-                                    ToggleButtons::make('obrigatorio')
-                                        ->label('Obrigatório?')
-                                        ->boolean()
-                                        ->required()
-                                        ->grouped(),
-                                    Select::make('tipo')->label('Tipo de Anexo')
-                                        ->options([
-                                            'editais' => 'Editais e Erratas',
-                                            'resultados' => 'Resultados, Resoluções e Editais de Convocação',
-                                            'anexos' => 'Anexos',
-                                        ]),
-                                    Money::make('price')
-                                        ->default('100,00')
-                                        ->required(),
-                                ])
-                                ->columns(1)
-                                ->itemLabel(fn (array $state): ?string => $state['documento'] ?? null)
-                                ->defaultItems(0)
-                                ->addActionAlignment(Alignment::Start)
-                                ->addActionLabel('+ Documentos'),
-                        ]),
                 ])->persistTabInQueryString()->columnSpanFull(),
 
         ];
@@ -162,7 +133,7 @@ class Processo extends Model
         return LogOptions::defaults()->logAll();
     }
 
-    public function members(): BelongsToMany
+    public function membros(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
     }
@@ -190,6 +161,16 @@ class Processo extends Model
     public function anexos(): HasMany
     {
         return $this->hasMany(ProcessoAnexo::class);
+    }
+
+    public function getFilamentName(): string
+    {
+        return $this->titulo;
+    }
+
+    public function cargos(): HasMany
+    {
+        return $this->hasMany(ProcessoCargo::class);
     }
 
     protected function status(): Attribute

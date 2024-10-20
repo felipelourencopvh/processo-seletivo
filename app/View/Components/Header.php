@@ -1,0 +1,81 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\View\Components;
+
+use Closure;
+use Illuminate\Contracts\View\View;
+
+class Header extends \Mary\View\Components\Header
+{
+    public function __construct(
+        ?string $title = null,
+        ?string $subtitle = null,
+        ?bool $separator = false,
+        ?string $progressIndicator = null,
+        ?bool $withAnchor = false,
+        ?string $size = 'text-4xl',
+        mixed $middle = null,
+        mixed $actions = null,
+    ) {
+        parent::__construct($title, $subtitle, $separator, $progressIndicator, $withAnchor, $size, $middle, $actions);
+    }
+
+    public function render(): View|Closure|string
+    {
+        return <<<'HTML'
+            <div id="{{ $anchor }}" {{ $attributes->class(["mb-10", "mary-header-anchor" => $withAnchor]) }}>
+                <div class="flex flex-wrap gap-5 justify-items-center items-center">
+                    <div>
+                        <div @class(["$size font-bold", is_string($title) ? '' : $title?->attributes->get('class') ]) >
+                            @if($withAnchor)
+                                <a href="#{{ $anchor }}">
+                            @endif
+
+                            {{ $title }}
+
+                            @if($withAnchor)
+                                </a>
+                            @endif
+                        </div>
+
+                        @if($subtitle)
+                            <div @class(["text-gray-500 text-sm mt-1", is_string($subtitle) ? '' : $subtitle?->attributes->get('class') ]) >
+                                {{ $subtitle }}
+                            </div>
+                        @endif
+                    </div>
+
+                    @if($middle)
+                        <div @class(["flex items-center justify-center gap-3 grow order-last sm:order-none", is_string($middle) ? '' : $middle?->attributes->get('class')])>
+                            <div class="w-full lg:w-auto">
+                                {{ $middle }}
+                            </div>
+                        </div>
+                    @endif
+                    
+                    <div @class(["flex items-center gap-3", is_string($actions) ? '' : $actions?->attributes->get('class') ]) >
+                        {{ $actions}}
+                    </div>
+                </div>
+
+                @if($separator)
+                    <hr class="my-5" />
+
+                    @if($progressIndicator)
+                        <div class="h-0.5 -mt-9 mb-9">
+                            <progress
+                                class="progress progress-primary w-full h-0.5 dark:h-1"
+                                wire:loading
+
+                                @if($progressTarget())
+                                    wire:target="{{ $progressTarget() }}"
+                                 @endif></progress>
+                        </div>
+                    @endif
+                @endif
+            </div>
+            HTML;
+    }
+}

@@ -1,13 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers\Filament;
 
-use App\Filament\Pages\Tenancy\EditTeamProfile;
-use App\Filament\Pages\Tenancy\RegisterTeam;
+use App\Filament\App\Pages\Auth\Register;
+use App\Filament\App\Pages\EditProcessoSeletivo;
 use App\Models\Processo;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\MenuItem;
+use Filament\Navigation\NavigationItem;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -26,17 +30,21 @@ class AppPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
+            ->default()
             ->id('app')
             ->path('app')
-            ->sidebarCollapsibleOnDesktop()
-            ->sidebarWidth('18rem')
-            ->tenant(Processo::class, slugAttribute: 'slug', ownershipRelationship: 'processo')
-//            ->tenantRegistration(RegisterTeam::class)
-//            ->tenantProfile(EditTeamProfile::class)
             ->login()
+            ->registration(Register::class)
+            ->profile()
+            ->userMenuItems([
+                MenuItem::make()
+                    ->label('Admin')
+                    ->icon('heroicon-o-cog-6-tooth')
+                    ->url('/admin')
+                    ->visible(fn (): bool => auth()->user()->hasRole('super_admin')),
+            ])
             ->passwordReset()
             ->emailVerification()
-            ->profile()
             ->colors([
                 'danger' => Color::Red,
                 'gray' => Color::Slate,
@@ -68,6 +76,13 @@ class AppPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+            ])
+            ->tenant(Processo::class, slugAttribute: 'slug', ownershipRelationship: 'processo')
+            ->tenantProfile(EditProcessoSeletivo::class)
+            ->navigationItems([
+                NavigationItem::make('Editar Processo Seletivo')
+                    ->icon('heroicon-o-rectangle-stack')
+                    ->url(static fn () => url(EditProcessoSeletivo::getUrl())),
             ]);
     }
 }

@@ -7,7 +7,7 @@ namespace App\Enums;
 enum ProcessoStatus: string
 {
     case ABERTO = 'Aberto';
-    case EM_BREVE = 'Abre em breve';
+    case EM_BREVE = 'Em breve';
     case EM_ANDAMENTO = 'Em andamento';
     case ENCERRADO = 'Encerrado';
 

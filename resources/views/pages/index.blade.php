@@ -60,7 +60,7 @@ new class () extends Component {
         </x-slot>
     </x-header>
 
-    <div class="my-4 font-[sans-serif]">
+    <div class="my-4">
         <div class="mx-auto">
             <div
                 class="mx-auto mt-16 grid grid-cols-1 gap-6 max-lg:max-w-3xl max-md:max-w-md md:grid-cols-2 lg:grid-cols-3"

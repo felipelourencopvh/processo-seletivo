@@ -1,0 +1,8 @@
+<?php
+
+namespace App\View\Components;
+
+class $name$ extends \Mary\View\Components\$name$
+{
+
+}

@@ -13,11 +13,21 @@
         {{-- EasyMDE --}}
         <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css" />
         <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
+        <!-- Fonte Rawline-->
+        <link
+            rel="stylesheet"
+            href="https://cdngovbr-ds.estaleiro.serpro.gov.br/design-system/fonts/rawline/css/rawline.css"
+        />
+        <!-- Fonte Raleway-->
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900&amp;display=swap"
+        />
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @stack('styles')
         @yield('styles')
     </head>
-    <body id="main" class="min-h-screen bg-base-200/50 font-sans text-base antialiased" x-data>
+    <body id="main" class="font-rawline min-h-screen text-base antialiased" x-data>
         <x-layouts.parts.header />
 
         {{-- MAIN --}}

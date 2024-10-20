@@ -20,13 +20,13 @@ docker-build-tag:
     - docker tag $IMAGE_NAME/web:$IMAGE_TAG $IMAGE_NAME/web:latest
     - docker push $IMAGE_NAME/web:$IMAGE_TAG
     - docker push $IMAGE_NAME/web:latest
-#deploy-prod:
-#  stage: deploy
-#  image: alpine
-#  script:
-#    - apk add --update curl
-#    - curl -X POST $WEBHOOK_APP?tag=$IMAGE_TAG
-#    - curl -X POST $WEBHOOK_WORKER?tag=$IMAGE_TAG
-#    - curl -X POST $WEBHOOK_TASKS?tag=$IMAGE_TAG
-#  rules:
-#    - if: $CI_COMMIT_BRANCH == "main"
+deploy-prod:
+  stage: deploy
+  image: alpine
+  script:
+    - apk add --update curl
+    - curl -X POST $WEBHOOK_APP?tag=$IMAGE_TAG
+    - curl -X POST $WEBHOOK_WORKER?tag=$IMAGE_TAG
+    - curl -X POST $WEBHOOK_TASKS?tag=$IMAGE_TAG
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
