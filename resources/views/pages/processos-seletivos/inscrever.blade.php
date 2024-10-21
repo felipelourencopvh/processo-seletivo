@@ -140,7 +140,7 @@ new class () extends Component {
     @else
         <x-card title="Processo Seletivo:" subtitle="{{ $processo->titulo }}">
             <x-button
-                label="Já possui uma inscrição ou o Processo não está ativo"
+                label="Já possui uma inscrição, para consultar as inscrições, utilize a opção Meu Perfil"
                 class="btn-error"
                 wire:click="save3"
                 spinner

@@ -5,6 +5,7 @@ use Livewire\Volt\Component;
 
 new class () extends Component {
     use Livewire\WithFileUploads;
+    use Mary\Traits\Toast;
 
     public string                $uuid;
     public ?App\Models\Inscricao $inscricao;
@@ -17,6 +18,8 @@ new class () extends Component {
             ->where('id', $this->uuid)
             ->where('user_id', auth()->id())
             ->firstOrFail();
+
+        $this->file = $this->inscricao->documentos->pluck('documento', 'id')->toArray();
     }
 
     public function save()
@@ -29,6 +32,8 @@ new class () extends Component {
                 $documento->addMedia($file->getRealPath())->usingName($file->getClientOriginalName())->toMediaCollection('default');
             }
         }
+
+        $this->success('Documento enviado com sucesso', redirectTo: '/candidato');
     }
 } ?>
 
@@ -54,7 +59,7 @@ new class () extends Component {
                         subtitle="Pontuação por Documento: {{  $items->first()->pontuacao_previa }}"
                     >
                         @foreach ($items as $documento)
-                            @if ($documento->hasMedia())
+                            @if ($documento->enviado)
                                 <x-button
                                     label="Clique aqui para baixar"
                                     class="btn-success btn-sm"

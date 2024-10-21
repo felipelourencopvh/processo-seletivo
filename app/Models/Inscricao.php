@@ -30,6 +30,6 @@ class Inscricao extends Model
 
     public function documentos(): HasMany
     {
-        return $this->hasMany(InscricaoDocumento::class, 'inscricao_id', 'id');
+        return $this->hasMany(InscricaoDocumento::class, 'inscricao_id', 'id')->orderBy('id', 'asc');
     }
 }
