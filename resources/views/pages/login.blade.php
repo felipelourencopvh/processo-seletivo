@@ -54,7 +54,7 @@ class extends Component {
             </x-checkbox>
 
             <x-slot:actions>
-                <x-button label="Registre aqui" link="/app/register" />
+                <x-button label="Registre aqui" link="/registrar" />
                 <x-button
                     label="{{ __('Login') }}"
                     type="submit"

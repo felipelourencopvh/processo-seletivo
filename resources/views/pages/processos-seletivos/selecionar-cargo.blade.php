@@ -48,35 +48,11 @@ new class () extends Component {
         return [];
     }
 
-    public function save(): void
+    public function save(App\Actions\CreateNewInscricaoAction $action): void
     {
         $this->validate();
-        $inscricao = new App\Models\Inscricao();
-        $inscricao->situacao = 'Pendente';
-        $inscricao->user_id = auth()->id();
-        $inscricao->processo_id = $this->cargo->processo_id;
-        $inscricao->cargo_id = $this->cargo->id;
-        $inscricao->cota = $this->cota;
-        $inscricao->save();
 
-        foreach ($this->cargo->documentos()->get() as $documento) {
-            for ($x = 1; $x <= $documento->quantidade_maxima; $x++) {
-                $inscricaoDoc = new App\Models\InscricaoDocumento();
-                $inscricaoDoc->documento = $x;
-                $inscricaoDoc->enviado = false;
-                $inscricaoDoc->aprovado = false;
-                $inscricaoDoc->pontuacao = 0;
-                $inscricaoDoc->pontuacao_previa = $documento->pontuacao;
-                $inscricaoDoc->inscricao_id = $inscricao->id;
-                $inscricaoDoc->processo_cargo_documento_id = $documento->id;
-                $inscricaoDoc->save();
-            }
-        }
-
-        //        try {
-        //            Mail::to(auth()->user()->email)->send(new App\Mail\InscricaoConfirmadaMail($inscricao));
-        //        } catch (Exception $e) {
-        //        }
+        $inscricao = $action->handle(auth()->user(), $this->cargo, $this->cota);
 
         $this->success('Inscrição foi enviada com sucesso', redirectTo: '/candidato/inscricoes/'.$inscricao->id);
     }

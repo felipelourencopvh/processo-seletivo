@@ -10,10 +10,14 @@ use Illuminate\View\Component;
 
 class Submit extends Component
 {
+    public function __construct(public string $label = 'Salvar')
+    {
+    }
+
     public function render(): ViewView|Closure|string
     {
         return <<<'HTML'
-                    <x-button label="Salvar" icon="o-paper-airplane" spinner="save" type="submit"  {{ $attributes->whereDoesntStartWith('class') }} {{ $attributes->class(['btn-primary hover:scale-105']) }} />
+                    <x-button label="{{ $label }}" icon="o-paper-airplane" spinner="save" type="submit"  {{ $attributes->whereDoesntStartWith('class') }} {{ $attributes->class(['btn-primary hover:scale-105']) }} />
             HTML;
     }
 }
