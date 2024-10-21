@@ -1,4 +1,4 @@
-<div class="breadcrumbs -mt-2 mb-5 border-b pb-2">
+<div class="breadcrumbs mb-5 mt-2 border-b pb-2">
     <ul>
         <li>
             <a wire:navigate href="{{ route('home') }}" class="text-gray-400 hover:text-gray-500">

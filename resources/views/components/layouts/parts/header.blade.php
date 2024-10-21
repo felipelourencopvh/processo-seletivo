@@ -1,88 +1,167 @@
-<header class="relative z-50 bg-white font-sans tracking-wide shadow-md">
-    <div class="navbar mx-auto max-w-screen-2xl bg-base-100">
-        <div class="navbar-start">
-            {{-- <div class="dropdown"> --}}
-            {{-- <div tabindex="0" role="button" class="btn btn-ghost lg:hidden"> --}}
-            {{-- <svg --}}
-            {{-- xmlns="http://www.w3.org/2000/svg" --}}
-            {{-- class="h-5 w-5" --}}
-            {{-- fill="none" --}}
-            {{-- viewBox="0 0 24 24" --}}
-            {{-- stroke="currentColor" --}}
-            {{-- > --}}
-            {{-- <path --}}
-            {{-- stroke-linecap="round" --}}
-            {{-- stroke-linejoin="round" --}}
-            {{-- stroke-width="2" --}}
-            {{-- d="M4 6h16M4 12h8m-8 6h16" --}}
-            {{-- /> --}}
-            {{-- </svg> --}}
-            {{-- </div> --}}
-            {{-- <ul --}}
-            {{-- tabindex="0" --}}
-            {{-- class="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow" --}}
-            {{-- > --}}
-            {{-- <li><a>Item 1</a></li> --}}
-
-            {{-- <li><a>Item 3</a></li> --}}
-            {{-- </ul> --}}
-            {{-- </div> --}}
-            <div>
-                <a wire:navigate href="/"><img src="{{ asset('media/brasao.svg') }}" alt="logo" class="h-[40px]" /></a>
+<header class="br-header mb-4" id="header" data-sticky="data-sticky">
+    <div class="container-lg">
+        <div class="header-top">
+            <div class="header-logo">
+                <img src="{{ asset('media/brasao.svg') }}" alt="logo" />
+                <span class="br-divider vertical"></span>
+                <div class="header-sign">Prefeitura de Porto Velho</div>
             </div>
+            <div class="header-actions">
+                <div class="header-links dropdown">
+                    <button
+                        class="br-button circle small"
+                        type="button"
+                        data-toggle="dropdown"
+                        aria-label="Abrir Acesso Rápido"
+                    >
+                        <i class="fas fa-ellipsis-v" aria-hidden="true"></i>
+                    </button>
+                    <div class="br-list">
+                        <div class="header">
+                            <div class="title">Acesso Rápido</div>
+                        </div>
 
-            <div class="ml-5 flex flex-col items-center gap-0.5">
-                <span class="me-3 text-sm font-bold text-primary">Processos Seletivos</span>
-                <span class="me-3 text-sm font-bold text-primary">Prefeitura Porto Velho</span>
-            </div>
-        </div>
-        <div class="navbar-center hidden lg:flex">
-            @props([
-                'external' => [
-                    'Portal da Prefeitura' => 'https://www.portovelho.ro.gov.br',
-                    'Transparência' => 'https://transparencia.portovelho.ro.gov.br',
-                    'Ouvidoria' => 'https://ouvidoria.portovelho.ro.gov.br/',
-                    'Acesso à informação' => 'https://falabr.cgu.gov.br/web/login?tipo=8&redirect=/manifestacao/criar?tipo=8',
-                    'Denúncia Corrupção' => 'https://falabr.cgu.gov.br/login/RO/PortoVelho/Identificacao?idFormulario=4&tipo=1&ReturnUrl=%2fpublico%2fRO%2fPortoVelho%2fmanifestacao%2fRegistrarDadosManifestacao%3fidFormulario%3d4%26tipo%3d1%26origem%3didp%26modo%3d',
-                ],
-                'selected' => '',
-            ])
-            <ul class="menu menu-horizontal px-1">
-                @foreach ($external as $label => $url)
-                    <li>
-                        <a
-                            class="{{ Request::is(trim($url, '/')) ? 'font-bold text-blue-800' : '' }} text-sm font-medium text-primary hover:bg-transparent hover:text-blue-800"
-                            href="{{ $url }}"
-                            target="_blank"
-                        >
-                            {{ $label }}
-                        </a>
-                    </li>
-                @endforeach
-            </ul>
-        </div>
-        <div class="navbar-end">
-            @auth
-                <x-dropdown>
-                    <x-slot:trigger>
-                        <x-avatar :image="auth()->user()->avatar_url" class="!w-8 !rounded-lg" />
-                    </x-slot>
-                    <div class="w-64">
-                        <x-avatar
-                            :image="auth()->user()->avatar_url"
-                            :title="auth()->user()->name"
-                            :subtitle="auth()->user()->email"
-                            class="!w-10"
-                        />
-                        <x-menu-separator />
-                        <x-menu-item icon="o-user" :title="__('Meu Perfil')" link="{{ route('candidato.index') }}" />
-                        <x-menu-separator />
-                        <x-menu-item icon="o-power" :label="'Sair'" link="/logout" no-wire-navigate />
+                        @props([
+                            'external' => [
+                                'Portal da Prefeitura' => 'https://www.portovelho.ro.gov.br',
+                                'Transparência' => 'https://transparencia.portovelho.ro.gov.br',
+                                'Ouvidoria' => 'https://ouvidoria.portovelho.ro.gov.br/',
+                                'Acesso à informação' => 'https://falabr.cgu.gov.br/web/login?tipo=8&redirect=/manifestacao/criar?tipo=8',
+                                'Denúncia Corrupção' => 'https://falabr.cgu.gov.br/login/RO/PortoVelho/Identificacao?idFormulario=4&tipo=1&ReturnUrl=%2fpublico%2fRO%2fPortoVelho%2fmanifestacao%2fRegistrarDadosManifestacao%3fidFormulario%3d4%26tipo%3d1%26origem%3didp%26modo%3d',
+                            ],
+                            'selected' => '',
+                        ])
+                        @foreach ($external as $label => $url)
+                            <a class="br-item" href="{{ $url }}">{{ $label }}</a>
+                        @endforeach
                     </div>
-                </x-dropdown>
-            @else
-                <x-button class="btn-primary btn-sm" label="Entrar" icon="o-user" link="/login" />
-            @endauth
+                </div>
+                <span class="br-divider vertical mx-half mx-sm-1"></span>
+                <div class="header-functions dropdown">
+                    <button
+                        class="br-button circle small"
+                        type="button"
+                        data-toggle="dropdown"
+                        aria-label="Abrir Funcionalidades do Sistema"
+                    >
+                        <i class="fas fa-th" aria-hidden="true"></i>
+                    </button>
+                    {{-- <div class="br-list"> --}}
+                    {{-- <div class="header"> --}}
+                    {{-- <div class="title">Funcionalidades do Sistema</div> --}}
+                    {{-- </div> --}}
+                    {{-- <div class="br-item"> --}}
+                    {{-- <button --}}
+                    {{-- class="br-button circle small" --}}
+                    {{-- type="button" --}}
+                    {{-- aria-label="Funcionalidade 1" --}}
+                    {{-- control-id="ControlID-1" --}}
+                    {{-- > --}}
+                    {{-- <i class="fas fa-chart-bar" aria-hidden="true"></i> --}}
+                    {{-- <span class="text">Funcionalidade 1</span> --}}
+                    {{-- </button> --}}
+                    {{-- </div> --}}
+                    {{-- <div class="br-item"> --}}
+                    {{-- <button --}}
+                    {{-- class="br-button circle small" --}}
+                    {{-- type="button" --}}
+                    {{-- aria-label="Funcionalidade 2" --}}
+                    {{-- control-id="ControlID-2" --}}
+                    {{-- > --}}
+                    {{-- <i class="fas fa-headset" aria-hidden="true"></i> --}}
+                    {{-- <span class="text">Funcionalidade 2</span> --}}
+                    {{-- </button> --}}
+                    {{-- </div> --}}
+                    {{-- <div class="br-item"> --}}
+                    {{-- <button --}}
+                    {{-- class="br-button circle small" --}}
+                    {{-- type="button" --}}
+                    {{-- aria-label="Funcionalidade 3" --}}
+                    {{-- control-id="ControlID-3" --}}
+                    {{-- > --}}
+                    {{-- <i class="fas fa-comment" aria-hidden="true"></i> --}}
+                    {{-- <span class="text">Funcionalidade 3</span> --}}
+                    {{-- </button> --}}
+                    {{-- </div> --}}
+                    {{-- <div class="br-item"> --}}
+                    {{-- <button --}}
+                    {{-- class="br-button circle small" --}}
+                    {{-- type="button" --}}
+                    {{-- aria-label="Funcionalidade 4" --}}
+                    {{-- control-id="ControlID-4" --}}
+                    {{-- > --}}
+                    {{-- <i class="fas fa-adjust" aria-hidden="true"></i> --}}
+                    {{-- <span class="text">Funcionalidade 4</span> --}}
+                    {{-- </button> --}}
+                    {{-- </div> --}}
+                    {{-- </div> --}}
+                </div>
+                <div class="header-search-trigger">
+                    <button
+                        class="br-button circle"
+                        type="button"
+                        aria-label="Abrir Busca"
+                        data-toggle="search"
+                        data-target=".header-search"
+                        control-id="ControlID-5"
+                    >
+                        <i class="fas fa-search" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <div class="header-login">
+                    <div class="header-sign-in">
+                        <x-user-menu />
+                    </div>
+                    <div class="header-avatar"></div>
+                </div>
+            </div>
+        </div>
+        <div class="header-bottom">
+            <div class="header-menu">
+                <div class="header-menu-trigger" id="header-navigation">
+                    <label for="main-drawer" class="cursor-pointer">
+                        <x-svg
+                            for="main-drawer"
+                            class="br-button small circle inline h-9 w-9 text-primary hover:bg-base-200"
+                            name="heroicon-o-bars-3"
+                        />
+                    </label>
+                </div>
+                <div class="header-info">
+                    <div class="header-title">{{ config('app.name') }}</div>
+                    {{-- <div class="header-subtitle">Subtítulo do Header</div> --}}
+                </div>
+            </div>
+            {{-- <div class="header-search" id="main-searchbox"> --}}
+            {{-- <div class="br-input has-icon"> --}}
+            {{-- <label for="searchbox">Texto da pesquisa</label> --}}
+            {{-- <input --}}
+            {{-- id="searchbox" --}}
+            {{-- type="text" --}}
+            {{-- placeholder="O que você procura?" --}}
+            {{-- control-id="ControlID-8" --}}
+            {{-- class="" --}}
+            {{-- /> --}}
+            {{-- <button --}}
+            {{-- class="br-button circle small" --}}
+            {{-- type="button" --}}
+            {{-- aria-label="Pesquisar" --}}
+            {{-- control-id="ControlID-9" --}}
+            {{-- > --}}
+            {{-- <i class="fas fa-search" aria-hidden="true"></i> --}}
+            {{-- </button> --}}
+            {{-- </div> --}}
+            {{-- <button --}}
+            {{-- class="br-button circle search-close ml-1" --}}
+            {{-- type="button" --}}
+            {{-- aria-label="Fechar Busca" --}}
+            {{-- data-dismiss="search" --}}
+            {{-- control-id="ControlID-10" --}}
+            {{-- > --}}
+            {{-- <icon></icon> --}}
+            {{-- <i class="fas fa-times" aria-hidden="true"></i> --}}
+            {{-- </button> --}}
+            {{-- </div> --}}
         </div>
     </div>
 </header>

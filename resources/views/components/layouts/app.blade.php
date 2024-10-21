@@ -23,28 +23,24 @@
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900&amp;display=swap"
         />
+        <!-- Fontawesome-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @stack('styles')
         @yield('styles')
     </head>
-    <body id="main" class="min-h-screen font-rawline text-base antialiased" x-data>
-        <x-layouts.parts.header />
-
-        {{-- MAIN --}}
-        <x-layouts.parts.main full-width>
-            {{-- SIDEBAR --}}
-            <x-slot:sidebar
-                drawer="main-drawer"
-                class="dark:border-r-coal-100 border-r border-r-gray-200 bg-base-100 lg:bg-inherit"
-            >
-                {{-- MENU --}}
+    <body id="main" class="min-h-screen font-rawline text-base antialiased">
+        <x-main>
+            <x-slot:sidebar drawer="main-drawer" collapsible class="bg-base-100">
+                <x-layouts.parts.menu />
             </x-slot>
 
             {{-- The `$slot` goes here --}}
-            <x-slot:content>
+            <x-slot:content class="relative">
                 {{ $slot }}
             </x-slot>
-        </x-layouts.parts.main>
+        </x-main>
+        {{-- MAIN --}}
         <x-layouts.parts.footer />
         {{-- TOAST area --}}
         <x-mary-toast />

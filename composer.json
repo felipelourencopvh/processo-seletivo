@@ -24,6 +24,7 @@
     "livewire/livewire": "^3.5",
     "livewire/volt": "^1.6",
     "lorisleiva/laravel-actions": "^2.8",
+    "owenvoke/blade-fontawesome": "^2.6",
     "robsontenorio/mary": "^1.40",
     "spatie/laravel-activitylog": "^4.8"
   },
