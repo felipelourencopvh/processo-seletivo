@@ -13,7 +13,7 @@ new class () extends Component {
     public function mount()
     {
         $this->inscricao = App\Models\Inscricao::query()
-            ->with(['documentos', 'cargo', 'processo'])
+            ->with(['documentos.cargoDocumento', 'cargo', 'processo'])
             ->where('id', $this->uuid)
             ->where('user_id', auth()->id())
             ->firstOrFail();
@@ -47,26 +47,28 @@ new class () extends Component {
 
         <x-card title="Envio de Documentos" subtitle="clique em Salvar para confirmar o envio" separator shadow>
             <x-form wire:submit="save">
-                @foreach ($inscricao->documentos as $documento)
+                @foreach ($inscricao->documentos->groupBy('processo_cargo_documento_id') as $items)
                     <x-card
                         class="bg-blue-5 mb-10"
-                        title="{{ $documento->documento }}"
-                        subtitle="Pontuação por Documento: {{ $documento->pontuacao_previa }}"
+                        title="{{$items->first()->cargoDocumento->documento}}"
+                        subtitle="Pontuação por Documento: {{  $items->first()->pontuacao_previa }}"
                     >
-                        @if ($documento->hasMedia())
-                            <x-button
-                                label="Clique aqui para baixar"
-                                class="btn-success btn-sm"
-                                :link="$documento->getFirstMediaUrl()"
-                                external
-                            />
-                        @else
-                            <x-file
-                                wire:model="file.{{$documento->id}}"
-                                hint="Somente arquivo PDF"
-                                accept="application/pdf"
-                            />
-                        @endif
+                        @foreach ($items as $documento)
+                            @if ($documento->hasMedia())
+                                <x-button
+                                    label="Clique aqui para baixar"
+                                    class="btn-success btn-sm"
+                                    :link="$documento->getFirstMediaUrl()"
+                                    external
+                                />
+                            @else
+                                <x-file
+                                    wire:model="file.{{$documento->id}}"
+                                    hint="Somente arquivo PDF"
+                                    accept="application/pdf"
+                                />
+                            @endif
+                        @endforeach
                     </x-card>
                 @endforeach
 

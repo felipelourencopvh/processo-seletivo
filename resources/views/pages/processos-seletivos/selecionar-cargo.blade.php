@@ -62,7 +62,7 @@ new class () extends Component {
         foreach ($this->cargo->documentos()->get() as $documento) {
             for ($x = 1; $x <= $documento->quantidade_maxima; $x++) {
                 $inscricaoDoc = new App\Models\InscricaoDocumento();
-                $inscricaoDoc->documento = $documento->documento.' ['.$x.']';
+                $inscricaoDoc->documento = $x;
                 $inscricaoDoc->enviado = false;
                 $inscricaoDoc->aprovado = false;
                 $inscricaoDoc->pontuacao = 0;
