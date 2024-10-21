@@ -17,7 +17,7 @@ return new class () extends Migration {
             $table->unsignedInteger('quantidade_minima');
             $table->unsignedInteger('quantidade_maxima');
             $table->double('pontuacao')->nullable();
-            $table->unsignedInteger('ordem');
+            $table->unsignedInteger('ordem')->nullable();
             $table->foreignId('processo_cargo_id')->constrained();
             $table->timestamps();
         });

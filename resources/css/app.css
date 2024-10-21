@@ -1,3 +1,5 @@
+@import 'core.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -17,30 +19,204 @@
     @apply bg-base-100
 }
 
+body {
+    --bg-color: var(--background);
+    --bg-color-rgb: var(--background-rgb);
+    --font-size: var(--font-size-scale-base);
+    --font-weight: var(--font-weight-regular);
+    --link-color: var(--interactive);
+    --link-color-rgb: var(--interactive-rgb);
+    --line-height: var(--font-line-height-medium);
+    --text-color: var(--color);
+    --text-color-rgb: var(--color-rgb);
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-family-base), serif;
+    font-size: var(--font-size);
+    font-weight: var(--font-weight);
+    line-height: var(--line-height);
+}
+
+
 .card {
-    @apply shadow-xl
+    @apply shadow-sm
 }
 
+h1,
 .h1 {
-    @apply text-6xl
+    color: var(--color);
+    font-size: var(--font-size-scale-up-04);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--font-line-height-low);
+    margin-top: 0;
 }
 
+@media (min-width: 576px) {
+    .h1,
+    h1 {
+        font-size: var(--font-size-scale-up-06);
+        font-weight: var(--font-weight-light);
+    }
+}
+
+h2,
 .h2 {
-    @apply text-5xl
+    color: var(--color);
+    font-size: var(--font-size-scale-up-03);
+    font-weight: var(--font-weight-semi-bold);
+    line-height: var(--font-line-height-low);
+    margin-bottom: var(--spacing-scale-2xh);
+    margin-top: var(--spacing-scale-3xh);
+    padding-bottom: var(--spacing-scale-2xh);
 }
 
+@media (min-width: 576px) {
+    .h2,
+    h2 {
+        font-size: var(--font-size-scale-up-05);
+        font-weight: var(--font-weight-regular);
+    }
+}
+
+h3,
 .h3 {
-    @apply text-4xl
+    color: var(--color);
+    font-size: var(--font-size-scale-up-02);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--font-line-height-low);
+    margin-bottom: var(--spacing-scale-2xh);
+    margin-top: var(--spacing-scale-3xh);
 }
 
+@media (min-width: 576px) {
+    .h3,
+    h3 {
+        font-size: var(--font-size-scale-up-04);
+        font-weight: var(--font-weight-medium);
+    }
+}
+
+h4,
 .h4 {
-    @apply text-3xl
+    color: var(--color);
+    font-size: var(--font-size-scale-up-01);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--font-line-height-low);
+    margin-bottom: var(--spacing-scale-2xh);
+    margin-top: var(--spacing-scale-2x);
 }
 
+@media (min-width: 576px) {
+    .h4,
+    h4 {
+        font-size: var(--font-size-scale-up-03);
+        font-weight: var(--font-weight-semi-bold);
+        margin-top: var(--spacing-scale-3xh);
+    }
+}
+
+h5,
 .h5 {
-    @apply text-2xl
+    color: var(--color);
+    font-size: var(--font-size-scale-base);
+    font-weight: var(--font-weight-extra-bold);
+    line-height: var(--font-line-height-low);
+    margin-bottom: var(--spacing-scale-2x);
+    margin-top: var(--spacing-scale-2x);
+    padding-bottom: var(--spacing-scale-base);
+    text-transform: uppercase;
 }
 
-.h8 {
-    @apply text-xl
+@media (min-width: 576px) {
+    .h5,
+    h5 {
+        font-size: var(--font-size-scale-up-02);
+        font-weight: var(--font-weight-bold);
+        margin-top: var(--spacing-scale-3xh);
+    }
+}
+
+h6,
+.h6 {
+    color: var(--color);
+    font-size: var(--font-size-scale-down-01);
+    font-weight: var(--font-weight-extra-bold);
+    line-height: var(--font-line-height-low);
+    margin-bottom: var(--spacing-scale-2x);
+    margin-top: var(--spacing-scale-2x);
+    padding-bottom: var(--spacing-scale-base);
+    text-transform: uppercase;
+}
+
+@media (min-width: 576px) {
+    .h6,
+    h6 {
+        font-size: var(--font-size-scale-up-01);
+        font-weight: var(--font-weight-extra-bold);
+        margin-top: var(--spacing-scale-3xh);
+    }
+}
+
+p {
+    color: var(--color);
+    font-size: var(--font-size-scale-base);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--font-line-height-medium);
+    margin-bottom: var(--spacing-scale-2x);
+    margin-top: 0;
+}
+
+p a {
+    text-decoration: underline;
+}
+
+@media (min-width: 576px) {
+    p {
+        font-size: var(--font-size-scale-up-01);
+    }
+}
+
+a {
+    --focus-offset: var(--spacing-scale-half);
+    color: var(--interactive);
+    text-decoration: none;
+}
+
+a:focus {
+    outline: none;
+}
+
+a.focus-visible, a:focus-visible {
+    outline-color: var(--focus);
+    outline-offset: var(--focus-offset);
+    outline-style: var(--focus-style);
+    outline-width: var(--focus-width);
+}
+
+a:not(:disabled):hover {
+    background-image: linear-gradient(rgba(var(--interactive-rgb), var(--hover)), rgba(var(--interactive-rgb), var(--hover)));
+}
+
+a:not(:disabled):active {
+    background-image: linear-gradient(rgba(var(--interactive-rgb), var(--pressed)), rgba(var(--interactive-rgb), var(--pressed)));
+}
+
+.main-content a {
+    text-decoration: underline;
+}
+
+.input {
+    border-color: var(--border-color-alternative);
+    border-radius: var(--surface-rounder-sm);
+    border-style: var(--border-style);
+    border-width: var(--border-width);
+    color: var(--color-light);
+}
+
+.select {
+    border-color: var(--border-color-alternative);
+    border-radius: var(--surface-rounder-sm);
+    border-style: var(--border-style);
+    border-width: var(--border-width);
+    color: var(--color-light);
 }

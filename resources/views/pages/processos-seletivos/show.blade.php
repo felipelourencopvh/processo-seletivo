@@ -1,8 +1,11 @@
 <?php
 
 use Livewire\Volt\Component;
+use Mary\Traits\Toast;
 
 new class () extends Component {
+    use Toast;
+
     public App\Models\Processo $processo;
 
     public function mount()
@@ -19,6 +22,18 @@ new class () extends Component {
             {!! $processo->descricao !!}
         </div>
     </x-card>
+
+    @if ($processo->status->isAberto())
+        <x-card title="Inscreva-se agora" separator class="mt-10">
+            <div class="card-body">
+                <x-button
+                    label="Clique aqui para se inscrever"
+                    class="btn-primary"
+                    :link="route('processos-seletivos.inscrever', $processo)"
+                />
+            </div>
+        </x-card>
+    @endif
 
     @foreach ($processo->anexos->groupBy('tipo') as $tipo => $anexos)
         @php

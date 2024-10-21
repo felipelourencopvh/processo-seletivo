@@ -15,7 +15,7 @@ class Header extends \Mary\View\Components\Header
         ?bool $separator = false,
         ?string $progressIndicator = null,
         ?bool $withAnchor = false,
-        ?string $size = 'text-4xl',
+        ?string $size = '',
         mixed $middle = null,
         mixed $actions = null,
     ) {
@@ -28,7 +28,7 @@ class Header extends \Mary\View\Components\Header
             <div id="{{ $anchor }}" {{ $attributes->class(["mb-10", "mary-header-anchor" => $withAnchor]) }}>
                 <div class="flex flex-wrap gap-5 justify-items-center items-center">
                     <div>
-                        <div @class(["$size font-bold", is_string($title) ? '' : $title?->attributes->get('class') ]) >
+                        <h1 @class(["$size", is_string($title) ? '' : $title?->attributes->get('class') ]) >
                             @if($withAnchor)
                                 <a href="#{{ $anchor }}">
                             @endif
@@ -38,7 +38,7 @@ class Header extends \Mary\View\Components\Header
                             @if($withAnchor)
                                 </a>
                             @endif
-                        </div>
+                        </h1>
 
                         @if($subtitle)
                             <div @class(["text-gray-500 text-sm mt-1", is_string($subtitle) ? '' : $subtitle?->attributes->get('class') ]) >

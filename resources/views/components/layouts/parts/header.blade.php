@@ -75,13 +75,13 @@
                             class="!w-10"
                         />
                         <x-menu-separator />
-                        {{-- <x-menu-item icon="o-user" :title="__('My Profile')" link="{{ route('my-profile') }}" /> --}}
+                        <x-menu-item icon="o-user" :title="__('Meu Perfil')" link="{{ route('candidato.index') }}" />
                         <x-menu-separator />
                         <x-menu-item icon="o-power" :label="'Sair'" link="/logout" no-wire-navigate />
                     </div>
                 </x-dropdown>
             @else
-                <x-button class="btn-primary" label="Entrar" icon="o-user" link="/login" />
+                <x-button class="btn-primary btn-sm" label="Entrar" icon="o-user" link="/login" />
             @endauth
         </div>
     </div>

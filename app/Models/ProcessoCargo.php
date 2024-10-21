@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\NivelEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -20,5 +21,10 @@ class ProcessoCargo extends Model
     public function documentos(): HasMany
     {
         return $this->hasMany(ProcessoCargoDocumento::class, 'processo_cargo_id');
+    }
+
+    protected function casts()
+    {
+        return ['nivel' => NivelEnum::class];
     }
 }

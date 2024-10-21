@@ -7,14 +7,12 @@ namespace App\Filament\App\Resources;
 use App\Filament\App\Resources\CargoResource\RelationManagers\DocumentosRelationManager;
 use App\Models\ProcessoCargo;
 use Filament\Forms\Components\Placeholder;
-use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\ToggleButtons;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Support\Enums\Alignment;
 use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
@@ -31,6 +29,7 @@ class CargoResource extends Resource
     protected static ?string $pluralLabel = 'Cargos';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $tenantRelationshipName = 'cargos';
 
     public static function form(Form $form): Form
     {
@@ -45,7 +44,13 @@ class CargoResource extends Resource
                                         TextInput::make('nome')
                                             ->required(),
 
-                                        TextInput::make('nivel'),
+                                        Select::make('nivel')->label('Nível de Ensino')
+                                            ->options([
+                                                'fundamental' => 'Ensino Fundamental',
+                                                'medio' => 'Ensino Médio',
+                                                'superior' => 'Ensino Superior',
+                                            ])
+                                            ->required(),
 
                                         TextInput::make('localidade'),
 
@@ -60,9 +65,6 @@ class CargoResource extends Resource
                                         TextInput::make('vagas_ppp')
                                             ->integer(),
 
-                                        TextInput::make('processo_id')
-                                            ->required()
-                                            ->integer(),
                                     ]),
                                     Section::make([
                                         Placeholder::make('created_at')
@@ -74,40 +76,8 @@ class CargoResource extends Resource
                                             ->content(fn (?ProcessoCargo $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
                                     ]),
                                 ]),
-                            Tabs\Tab::make('Documentos Necessários')
-                                ->schema([
-                                    Repeater::make('documentos')->label('Documentos Necessários')
-                                        ->schema([
-                                            TextInput::make('documento')->label('Documento')
-                                                ->required()
-                                                ->live(onBlur: true),
-                                            ToggleButtons::make('obrigatorio')
-                                                ->label('Obrigatório?')
-                                                ->boolean()
-                                                ->required()
-                                                ->grouped(),
-                                            TextInput::make('quantidade_minima')
-                                                ->label('Quantidade Mínima de Documentos')
-                                                ->integer()
-                                                ->required(),
-                                            TextInput::make('quantidade_maxima')
-                                                ->integer()
-                                                ->label('Quantidade Máxima de Documentos')
-                                                ->required(),
-                                            TextInput::make('pontuacao')
-                                                ->numeric()
-                                                ->inputMode('decimal')
-                                                ->label('Pontuação por Documento')
-                                                ->required(),
-                                        ])
-                                        ->columns(1)
-                                        ->itemLabel(fn (array $state): ?string => $state['documento'] ?? null)
-                                        ->defaultItems(0)
-                                        ->addActionAlignment(Alignment::Start)
-                                        ->addActionLabel('+ Documentos')->orderColumn('ordem'),
-                                ]),
                         ])->persistTabInQueryString()->columnSpanFull(),
-                ]
+                ],
             );
     }
 
@@ -116,20 +86,11 @@ class CargoResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('nome'),
-
-                TextColumn::make('nivel'),
-
                 TextColumn::make('localidade'),
-
-                TextColumn::make('descricao'),
-
+                TextColumn::make('nivel'),
                 TextColumn::make('vagas_ampla'),
-
                 TextColumn::make('vagas_pcd'),
-
                 TextColumn::make('vagas_ppp'),
-
-                TextColumn::make('processo_id'),
             ])
             ->filters([
 

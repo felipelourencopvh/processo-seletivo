@@ -27,7 +27,7 @@
         @stack('styles')
         @yield('styles')
     </head>
-    <body id="main" class="font-rawline min-h-screen text-base antialiased" x-data>
+    <body id="main" class="min-h-screen font-rawline text-base antialiased" x-data>
         <x-layouts.parts.header />
 
         {{-- MAIN --}}
@@ -47,7 +47,7 @@
         </x-layouts.parts.main>
         <x-layouts.parts.footer />
         {{-- TOAST area --}}
-        <x-toast />
+        <x-mary-toast />
 
         @stack('scripts')
         <script

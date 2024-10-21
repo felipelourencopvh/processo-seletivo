@@ -33,6 +33,11 @@ enum ProcessoStatus: string
         };
     }
 
+    public function isAberto(): bool
+    {
+        return self::ABERTO === $this;
+    }
+
     public function getColor(): string
     {
         return match ($this) {

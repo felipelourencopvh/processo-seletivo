@@ -1,0 +1,21 @@
+{
+  "$schema": "https://laravel-ide.com/schema/laravel-ide-v2.json",
+  "completions": [
+    {
+      "complete": "routeName",
+      "condition": [
+        {
+          "parameters": [
+            1
+          ],
+          "methodNames": [
+            "for"
+          ],
+          "classFqn": [
+            "\\Diglactic\\Breadcrumbs\\Breadcrumbs"
+          ]
+        }
+      ]
+    }
+  ]
+}

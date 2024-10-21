@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace App\Filament\App\Resources\CargoResource\RelationManagers;
 
 use App\Models\ProcessoCargoDocumento;
-use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\ToggleButtons;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables\Actions\BulkActionGroup;
@@ -20,39 +21,48 @@ use Filament\Tables\Table;
 
 class DocumentosRelationManager extends RelationManager
 {
+    protected static ?string $title = 'Documentos Necessários';
     protected static string $relationship = 'documentos';
+    protected static ?string $label = 'Documento';
+    protected static ?string $pluralLabel = 'Documentos';
 
     public function form(Form $form): Form
     {
         return $form
             ->schema([
                 TextInput::make('documento')
+                    ->label('Documento')
+                    ->required()
+                    ->columnSpanFull()
+                    ->live(onBlur: true),
+                ToggleButtons::make('obrigatorio')
+                    ->label('Obrigatório?')
+                    ->boolean()
+                    ->required()
+                    ->grouped(),
+                TextInput::make('pontuacao')
+                    ->numeric()
+                    ->inputMode('decimal')
+                    ->label('Pontuação por Documento')
+                    ->required(),
+                TextInput::make('quantidade_minima')
+                    ->label('Quantidade Mínima de Documentos')
+                    ->integer()
+                    ->required(),
+                TextInput::make('quantidade_maxima')
+                    ->integer()
+                    ->label('Quantidade Máxima de Documentos')
                     ->required(),
 
-                Checkbox::make('obrigatorio'),
+                Section::make([
+                    Placeholder::make('created_at')
+                        ->label('Criado Em')
+                        ->content(fn (?ProcessoCargoDocumento $record): string => $record?->created_at?->diffForHumans() ?? '-'),
 
-                TextInput::make('quantidade_minima')
-                    ->required()
-                    ->integer(),
-
-                TextInput::make('quantidade_maxima')
-                    ->required()
-                    ->integer(),
-
-                TextInput::make('pontuacao')
-                    ->numeric(),
-
-                TextInput::make('ordem')
-                    ->required()
-                    ->integer(),
-
-                Placeholder::make('created_at')
-                    ->label('Created Date')
-                    ->content(fn (?ProcessoCargoDocumento $record): string => $record?->created_at?->diffForHumans() ?? '-'),
-
-                Placeholder::make('updated_at')
-                    ->label('Last Modified Date')
-                    ->content(fn (?ProcessoCargoDocumento $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
+                    Placeholder::make('updated_at')
+                        ->label('Alterado Em')
+                        ->content(fn (?ProcessoCargoDocumento $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
+                ]),
             ]);
     }
 

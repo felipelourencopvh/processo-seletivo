@@ -23,7 +23,7 @@
                     <a
                         wire:navigate
                         href="{{ $breadcrumb->url }}"
-                        class="text-sm font-medium text-gray-500 hover:text-gray-700"
+                        class="text-sm"
                         @if ($loop->last) aria-current="page" @endif
                     >
                         {!! $breadcrumb->title !!}
