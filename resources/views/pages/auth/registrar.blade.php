@@ -1,10 +1,13 @@
 <?php
 
+use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
 use Mary\Traits\Toast;
 use App\Models\User;
 
-new class () extends Component {
+new
+#[Layout('components.layouts.empty')]
+class () extends Component {
     use Toast;
 
     public App\Livewire\Forms\NewUserForm $form;
@@ -66,8 +69,8 @@ new class () extends Component {
 }
 ?>
 
-<div>
-    <x-card title="Editar Cadastro">
+<div class="mx-auto mt-20 md:w-5/6">
+    <x-card title="Acesso ao sistema" subtitle="Novo Cadastro">
         <x-form wire:submit="save">
             <x-input label="Nome Completo" wire:model.blur="form.name" required />
             <x-input label="E-Mail" wire:model.blur="form.email" required />

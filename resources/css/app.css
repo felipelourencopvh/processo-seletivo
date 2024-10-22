@@ -193,14 +193,6 @@ a.focus-visible, a:focus-visible {
     outline-width: var(--focus-width);
 }
 
-a:not(:disabled):hover {
-    background-image: linear-gradient(rgba(var(--interactive-rgb), var(--hover)), rgba(var(--interactive-rgb), var(--hover)));
-}
-
-a:not(:disabled):active {
-    background-image: linear-gradient(rgba(var(--interactive-rgb), var(--pressed)), rgba(var(--interactive-rgb), var(--pressed)));
-}
-
 .main-content a {
     text-decoration: underline;
 }
@@ -211,6 +203,10 @@ a:not(:disabled):active {
     border-style: var(--border-style);
     border-width: var(--border-width);
     color: var(--color-light);
+}
+
+.checkbox {
+    border-radius: 0;
 }
 
 .select {
