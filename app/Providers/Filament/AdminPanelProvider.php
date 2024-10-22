@@ -90,7 +90,6 @@ class AdminPanelProvider extends PanelProvider
                         'sm' => 2,
                     ]),
             ])
-            ->viteTheme('vendor/tomatophp/filament-simple-theme/resources/css/theme.css');
-
+            ->viteTheme('resources/css/filament/admin/theme.css');
     }
 }

@@ -54,7 +54,6 @@ class AppPanelProvider extends PanelProvider
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
             ])
-            ->viteTheme('vendor/tomatophp/filament-simple-theme/resources/css/theme.css')
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -76,6 +75,7 @@ class AppPanelProvider extends PanelProvider
                     ->icon('heroicon-o-rectangle-stack')
                     ->url(static fn () => url(EditProcessoSeletivo::getUrl())),
             ])
+            ->viteTheme('resources/css/filament/admin/theme.css')
             ->brandName('Portal de Processos Seletivos');
     }
 }

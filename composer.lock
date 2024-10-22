@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5f407d6f5ce4a8d8fe0d74e802e6776d",
+    "content-hash": "db3099bb5324b4e38afd873fa54d0a56",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -9650,126 +9650,6 @@
             "time": "2023-12-08T13:03:43+00:00"
         },
         {
-            "name": "tomatophp/console-helpers",
-            "version": "v1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/tomatophp/console-helpers.git",
-                "reference": "69dd818a2bfa7d038467fb526be6c9b573d36a34"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/tomatophp/console-helpers/zipball/69dd818a2bfa7d038467fb526be6c9b573d36a34",
-                "reference": "69dd818a2bfa7d038467fb526be6c9b573d36a34",
-                "shasum": ""
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "TomatoPHP\\ConsoleHelpers\\ConsoleHelpersServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "TomatoPHP\\ConsoleHelpers\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fady Mondy",
-                    "email": "EngFadyMondy@gmail.com"
-                }
-            ],
-            "description": "tons of helper you need for you artisan command line application",
-            "keywords": [
-                "application",
-                "artisan",
-                "command",
-                "console",
-                "helpers",
-                "line"
-            ],
-            "support": {
-                "issues": "https://github.com/tomatophp/console-helpers/issues",
-                "source": "https://github.com/tomatophp/console-helpers/tree/v1.1.0"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/3x1io",
-                    "type": "github"
-                }
-            ],
-            "time": "2023-02-12T12:00:38+00:00"
-        },
-        {
-            "name": "tomatophp/filament-simple-theme",
-            "version": "v1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/tomatophp/filament-simple-theme.git",
-                "reference": "171c486e0462996ad4d4a90635f2bb6218ca5cca"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/tomatophp/filament-simple-theme/zipball/171c486e0462996ad4d4a90635f2bb6218ca5cca",
-                "reference": "171c486e0462996ad4d4a90635f2bb6218ca5cca",
-                "shasum": ""
-            },
-            "require": {
-                "filament/filament": "^3.0",
-                "php": "^8.1",
-                "tomatophp/console-helpers": "^1.1"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "TomatoPHP\\FilamentSimpleTheme\\FilamentSimpleThemeServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "TomatoPHP\\FilamentSimpleTheme\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fady Mondy",
-                    "email": "info@3x1.io"
-                }
-            ],
-            "description": "A simple theme for FilamentPHP with custom user menu in sidebar",
-            "keywords": [
-                "filament",
-                "filament-theme",
-                "filament-theme-simple",
-                "laravel",
-                "php"
-            ],
-            "support": {
-                "issues": "https://github.com/tomatophp/filament-simple-theme/issues",
-                "source": "https://github.com/tomatophp/filament-simple-theme/tree/v1.0.1"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/3x1io",
-                    "type": "github"
-                }
-            ],
-            "time": "2024-09-12T14:46:42+00:00"
-        },
-        {
             "name": "ueberdosis/tiptap-php",
             "version": "1.4.0",
             "source": {
@@ -13970,12 +13850,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.3"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }
