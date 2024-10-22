@@ -18,7 +18,9 @@ use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\HtmlString;
 
 class InscricaoResource extends Resource
@@ -59,13 +61,10 @@ class InscricaoResource extends Resource
                             'ampla' => 'Ampla Concorrência',
                             'pcd' => 'Pessoa com Deficiência',
                             'ppp' => 'Pessoa Preta ou Parda',
-                        ])
+                        ])->disabled()
                         ->required(),
 
                     TextInput::make('pontuacao')
-                        ->numeric(),
-
-                    TextInput::make('pontuacao_previa')
                         ->numeric(),
                 ]),
                 Section::make([
@@ -97,7 +96,7 @@ class InscricaoResource extends Resource
                 TextColumn::make('pontuacao')->numeric(),
             ])
             ->filters([
-
+                TrashedFilter::make(),
             ])
             ->actions([
                 EditAction::make(),
@@ -134,5 +133,13 @@ class InscricaoResource extends Resource
     public static function getNavigationBadge(): ?string
     {
         return (string) static::getModel()::count();
+    }
+
+    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        return parent::getEloquentQuery()
+            ->withoutGlobalScopes([
+                SoftDeletingScope::class,
+            ]);
     }
 }
