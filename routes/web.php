@@ -10,7 +10,7 @@ Volt::route('/login', 'auth.login')->name('login');
 Volt::route('/registrar', 'auth.registrar')->name('registrar');
 Volt::route('/recuperar-senha', 'auth.recuperar-senha')->name('recuperar-senha');
 Volt::route('/alterar-senha/{token}', 'auth.alterar-senha')->middleware('guest')->name('password.reset');
-Volt::route('/trocar-senha', 'auth.recuperar-senha')->name('recuperar-senha');
+Volt::route('/trocar-senha', 'auth.recuperar-senha')->name('trocar-senha');
 Route::get('/logout', function () {
     auth()->logout();
     request()->session()->invalidate();

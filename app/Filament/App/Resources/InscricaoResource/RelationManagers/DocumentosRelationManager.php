@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace App\Filament\App\Resources\InscricaoResource\RelationManagers;
 
+use App\Actions\CalculaMediaAction;
 use App\Models\InscricaoDocumento;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Tables\Actions\BulkActionGroup;
-use Filament\Tables\Actions\CreateAction;
-use Filament\Tables\Actions\DeleteAction;
-use Filament\Tables\Actions\DeleteBulkAction;
-use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\Action;
+use Filament\Tables\Columns\Summarizers\Count;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
+use Filament\Tables\Enums\ActionsPosition;
 use Filament\Tables\Table;
 
 class DocumentosRelationManager extends RelationManager
@@ -60,34 +60,29 @@ class DocumentosRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('id')
             ->columns([
-                TextColumn::make('documento'),
-
-                TextColumn::make('enviado'),
-
-                TextColumn::make('aprovado'),
-
-                TextColumn::make('pontuacao'),
-
-                TextColumn::make('pontuacao_previa'),
-
-                TextColumn::make('processo_cargo_documento_id'),
-
-                TextColumn::make('registerMediaConversionsUsingModelInstance'),
-            ])
-            ->filters([
-
-            ])
-            ->headerActions([
-                CreateAction::make(),
+                TextColumn::make('cargoDocumento.documento')->limit(50),
+                ToggleColumn::make('aprovado')
+                    ->beforeStateUpdated(function (InscricaoDocumento $record, $state) {
+                        $record->pontuacao = $state ? $record->pontuacao_previa : 0;
+                    })
+                    ->afterStateUpdated(function (InscricaoDocumento $record, $state) {
+                        CalculaMediaAction::run($record->inscricao_id);
+                    }),
+                TextColumn::make('pontuacao_previa')->label('Pontuação Prévia')->summarize(
+                    Count::make('Total Prévio')->label('Total Prévio')->query(fn ($query) => $query->where('enviado', true)),
+                ),
+                TextColumn::make('pontuacao')->label('Pontuação Final')->summarize(
+                    Count::make('Total Final')->label('Total Final')->query(fn ($query) => $query->where('enviado', true)->where('aprovado', true)),
+                ),
             ])
             ->actions([
-                EditAction::make(),
-                DeleteAction::make(),
-            ])
+                Action::make('Ver Documento')
+                    ->icon('heroicon-o-server')
+                    ->hidden(fn (InscricaoDocumento $record) => ! $record->enviado)
+                    ->url(fn (InscricaoDocumento $record): string => $record->getFirstMediaUrl())
+                    ->openUrlInNewTab(),
+            ], position: ActionsPosition::BeforeColumns)
             ->bulkActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
-            ]);
+            ])->paginated(false);
     }
 }

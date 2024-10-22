@@ -8,9 +8,11 @@ export default {
         './resources/**/**/*.js',
         './app/View/Components/**/**/*.php',
         './app/Livewire/**/**/*.php',
-
+        './app/Filament/**/*.php',
+        './app/Filament/**/**/*.php',
         // Add mary
         './vendor/robsontenorio/mary/src/View/Components/**/*.php',
+        './vendor/filament/**/*.blade.php',
     ],
     theme: {
         extend: {

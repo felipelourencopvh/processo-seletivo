@@ -35,32 +35,39 @@ class InscricaoResource extends Resource
     {
         return $form
             ->schema([
-                Placeholder::make('user.name')
-                    ->content(fn (Inscricao $record) => new HtmlString('<a class="underline" href="'.route('filament.app.resources.app.resources.usuarios.edit', ['record' => $record->user_id, 'tenant' => Filament::getTenant()]).'">'.$record->user->name. '</a>')),
+                Section::make([
+                    Placeholder::make('user.name')
+                        ->content(
+                            fn (Inscricao $record) => new HtmlString(
+                                '<a class="underline" href="'.route(
+                                    'filament.app.resources.app.resources.usuarios.edit',
+                                    ['record' => $record->user_id, 'tenant' => Filament::getTenant()],
+                                ).'">'.$record->user->name.'</a>',
+                            ),
+                        ),
+                    Select::make('situacao')->label('Situação')
+                        ->options([
+                            'Pendente' => 'Pendente',
+                            'Homologado' => 'Homologado',
+                            'Reprovado' => 'Reprovado',
+                            'Aprovado' => 'Aprovado',
+                        ])
+                        ->required(),
 
-                Select::make('situacao')->label('Situação')
-                    ->options([
-                        'Pendente' => 'Pendente',
-                        'Homologado' => 'Homologado',
-                        'Reprovado' => 'Reprovado',
-                        'Aprovado' => 'Aprovado',
-                    ])
-                    ->required(),
+                    Select::make('cota')->label('Cota')
+                        ->options([
+                            'ampla' => 'Ampla Concorrência',
+                            'pcd' => 'Pessoa com Deficiência',
+                            'ppp' => 'Pessoa Preta ou Parda',
+                        ])
+                        ->required(),
 
-                Select::make('cota')->label('Cota')
-                    ->options([
-                        'ampla' => 'Ampla Concorrência',
-                        'pcd' => 'Pessoa com Deficiência',
-                        'ppp' => 'Pessoa Preta ou Parda',
-                    ])
-                    ->required(),
+                    TextInput::make('pontuacao')
+                        ->numeric(),
 
-                TextInput::make('pontuacao')
-                    ->numeric(),
-
-                TextInput::make('pontuacao_previa')
-                    ->numeric(),
-
+                    TextInput::make('pontuacao_previa')
+                        ->numeric(),
+                ]),
                 Section::make([
                     Placeholder::make('created_at')
                         ->label('Criado Em')
@@ -77,11 +84,17 @@ class InscricaoResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('user.name')->label('Nome'),
-                TextColumn::make('user.info.documento')->label('CPF'),
-                TextColumn::make('situacao')->label('Situação'),
-                TextColumn::make('cargo.nome')->label('Cargo'),
-                TextColumn::make('cota'),
+                TextColumn::make('user.name')->label('Nome')->searchable()->sortable(),
+                TextColumn::make('user.info.documento')->label('CPF')->searchable()->sortable(),
+                TextColumn::make('situacao')->label('Situação')->badge()->color(fn (string $state): string => match ($state) {
+                    'Pendente' => 'info',
+                    'Homologado' => 'warning',
+                    'Reprovado' => 'success',
+                    'Aprovado' => 'danger',
+                })->searchable()->sortable(),
+                TextColumn::make('cargo.nome')->label('Cargo')->searchable()->sortable(),
+                TextColumn::make('cota')->searchable()->sortable(),
+                TextColumn::make('pontuacao')->numeric(),
             ])
             ->filters([
 
@@ -116,5 +129,10 @@ class InscricaoResource extends Resource
     public static function getGloballySearchableAttributes(): array
     {
         return [];
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return (string) static::getModel()::count();
     }
 }

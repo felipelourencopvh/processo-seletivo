@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\App\Resources;
 
+use App\Enums\NivelEnum;
 use App\Filament\App\Resources\CargoResource\RelationManagers\DocumentosRelationManager;
 use App\Models\ProcessoCargo;
 use Filament\Forms\Components\Placeholder;
@@ -85,12 +86,15 @@ class CargoResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('nome'),
-                TextColumn::make('localidade'),
-                TextColumn::make('nivel'),
-                TextColumn::make('vagas_ampla'),
-                TextColumn::make('vagas_pcd'),
-                TextColumn::make('vagas_ppp'),
+                TextColumn::make('nome')->sortable()->searchable(),
+                TextColumn::make('localidade')->searchable(),
+                TextColumn::make('nivel')
+                    ->formatStateUsing(function (NivelEnum $state): string {
+                        return $state->getLabel();
+                    })->label('Nível de Ensino')->searchable(),
+                TextColumn::make('vagas_ampla')->label('Vagas Ampla'),
+                TextColumn::make('vagas_pcd')->label('Vagas PcD'),
+                TextColumn::make('vagas_ppp')->label('Vagas PPP'),
             ])
             ->filters([
 
