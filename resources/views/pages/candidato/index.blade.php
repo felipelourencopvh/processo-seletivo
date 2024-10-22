@@ -18,7 +18,6 @@ new class () extends Component {
             ['key' => 'cargo.nome', 'label' => 'Cargo'],
             ['key' => 'cargo.localidade', 'label' => 'Localidade'],
             ['key' => 'cota', 'label' => 'Cota'],
-            ['key' => 'situacao', 'label' => 'Situação'],
         ];
     }
 

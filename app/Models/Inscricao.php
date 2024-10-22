@@ -32,4 +32,9 @@ class Inscricao extends Model
     {
         return $this->hasMany(InscricaoDocumento::class, 'inscricao_id', 'id')->orderBy('id', 'asc');
     }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }
