@@ -128,7 +128,9 @@
                     </label>
                 </div>
                 <div class="header-info">
-                    <div class="header-title">{{ config('app.name') }}</div>
+                    <div class="header-title">
+                        <a wire:navigate href="{{ route('home') }}">{{ config('app.name') }}</a>
+                    </div>
                     {{-- <div class="header-subtitle">Subtítulo do Header</div> --}}
                 </div>
             </div>
