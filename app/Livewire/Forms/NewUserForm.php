@@ -64,7 +64,7 @@ class NewUserForm extends Form
             'email' => ['required', 'email', 'max:254', Rule::unique('users')],
             'password' => ['required', 'confirmed'],
             'password_confirmation' => ['required'],
-            'documento' => ['required', Rule::unique('user_infos')],
+            'documento' => ['required', Rule::unique('user_infos'), 'cpf'],
             'data_nascimento' => ['required', 'date'],
             'sexo' => ['required'],
             'rg' => ['required'],
