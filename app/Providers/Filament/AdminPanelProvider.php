@@ -89,7 +89,8 @@ class AdminPanelProvider extends PanelProvider
                         'default' => 1,
                         'sm' => 2,
                     ]),
-                \TomatoPHP\FilamentSimpleTheme\FilamentSimpleThemePlugin::make(),
-            ]);
+            ])
+            ->viteTheme('vendor/tomatophp/filament-simple-theme/resources/css/theme.css');
+
     }
 }

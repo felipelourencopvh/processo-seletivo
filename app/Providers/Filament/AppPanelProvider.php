@@ -54,7 +54,7 @@ class AppPanelProvider extends PanelProvider
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
             ])
-            ->plugins([\TomatoPHP\FilamentSimpleTheme\FilamentSimpleThemePlugin::make()])
+            ->viteTheme('vendor/tomatophp/filament-simple-theme/resources/css/theme.css')
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
