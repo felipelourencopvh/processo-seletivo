@@ -31,7 +31,7 @@ class InscricaoResource extends Resource
     protected static ?string $label = 'Inscrição';
     protected static ?string $pluralLabel = 'Inscrições';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-users';
 
     public static function form(Form $form): Form
     {

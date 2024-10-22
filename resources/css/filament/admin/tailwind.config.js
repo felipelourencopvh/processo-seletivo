@@ -1,4 +1,4 @@
-import preset from '../../../../vendor/filament/filament/tailwind.config.preset'
+import preset from '../../../../vendor/filament/filament/tailwind.config.preset';
 
 export default {
     presets: [preset],
@@ -8,4 +8,5 @@ export default {
         './vendor/awcodes/filament-tiptap-editor/resources/**/*.blade.php',
         './vendor/filament/**/*.blade.php',
     ],
-}
+
+};

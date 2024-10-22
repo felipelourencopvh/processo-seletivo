@@ -20,6 +20,5 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Builder::macro('pluckWithIdName', fn ($idColumn = null, $nameColumn = null): Collection => $this->pluck($nameColumn, $idColumn)->map(fn ($value, $id): array => ['id' => $id, 'name' => $value])->values());
-
     }
 }

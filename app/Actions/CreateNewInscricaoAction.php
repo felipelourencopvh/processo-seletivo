@@ -7,18 +7,21 @@ namespace App\Actions;
 use App\Models\Inscricao;
 use App\Models\InscricaoDocumento;
 use App\Models\ProcessoCargo;
-use App\Models\User;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Throwable;
+use RuntimeException;
 
 class CreateNewInscricaoAction
 {
     use AsAction;
 
     /** @throws Throwable */
-    public function handle(User $usuario, ProcessoCargo $cargo, string $cota): Inscricao
+    public function handle(ProcessoCargo $cargo, string $cota): Inscricao
     {
-        throw_if($usuario->inscricoes()->where('processo_id', $cargo->processo_id)->exists(), 'Já possui uma inscrição');
+
+        if (Inscricao::where('processo_id', $cargo->processo_id)->where('user_id', auth()->id())->exists()) {
+            throw  new RuntimeException('Já possui inscrição');
+        }
 
         $inscricao = new Inscricao();
         $inscricao->situacao = 'Pendente';

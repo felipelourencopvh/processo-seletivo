@@ -15,7 +15,6 @@ use Filament\Navigation\NavigationItem;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
-use Filament\Support\Colors\Color;
 use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -45,14 +44,6 @@ class AppPanelProvider extends PanelProvider
             ])
             ->passwordReset()
             ->emailVerification()
-            ->colors([
-                'danger' => Color::Red,
-                'gray' => Color::Slate,
-                'info' => Color::Blue,
-                'primary' => Color::Indigo,
-                'success' => Color::Emerald,
-                'warning' => Color::Orange,
-            ])
             ->discoverResources(in: app_path('Filament/App/Resources'), for: 'App\\Filament\\App\\Resources')
             ->discoverPages(in: app_path('Filament/App/Pages'), for: 'App\\Filament\\App\\Pages')
             ->pages([
@@ -63,6 +54,7 @@ class AppPanelProvider extends PanelProvider
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
             ])
+            ->plugins([\TomatoPHP\FilamentSimpleTheme\FilamentSimpleThemePlugin::make()])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -83,6 +75,7 @@ class AppPanelProvider extends PanelProvider
                 NavigationItem::make('Editar Processo Seletivo')
                     ->icon('heroicon-o-rectangle-stack')
                     ->url(static fn () => url(EditProcessoSeletivo::getUrl())),
-            ]);
+            ])
+            ->brandName('Portal de Processos Seletivos');
     }
 }

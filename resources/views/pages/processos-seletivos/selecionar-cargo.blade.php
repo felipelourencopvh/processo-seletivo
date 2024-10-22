@@ -18,7 +18,7 @@ new class () extends Component {
 
     public function boot(): void
     {
-        if ( ! $this->cargo) {
+        if (!$this->cargo) {
             $this->show = false;
 
             return;
@@ -52,7 +52,7 @@ new class () extends Component {
     {
         $this->validate();
 
-        $inscricao = $action->handle(auth()->user(), $this->cargo, $this->cota);
+        $inscricao = $action->handle($this->cargo, $this->cota);
 
         $this->success('Inscrição foi enviada com sucesso', redirectTo: '/candidato/inscricoes/'.$inscricao->id);
     }
@@ -71,11 +71,11 @@ new class () extends Component {
             <x-slot:actions>
                 <x-button label="Cancelar" @click="$dispatch('cargo-cancel')" />
                 <x-button
-                    label="Inscrever-se"
-                    icon="o-paper-airplane"
-                    class="btn-primary"
-                    type="submit"
-                    spinner="save"
+                        label="Inscrever-se"
+                        icon="o-paper-airplane"
+                        class="btn-primary"
+                        type="submit"
+                        spinner="save"
                 />
             </x-slot>
         </x-form>

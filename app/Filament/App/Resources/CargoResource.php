@@ -29,7 +29,7 @@ class CargoResource extends Resource
     protected static ?string $label = 'Cargo';
     protected static ?string $pluralLabel = 'Cargos';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-briefcase';
     protected static ?string $tenantRelationshipName = 'cargos';
 
     public static function form(Form $form): Form
