@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Filament\App\Resources;
 
 use App\Filament\App\Resources\InscricaoResource\RelationManagers\DocumentosRelationManager;
+use App\Filament\Exports\InscricaoExporter;
 use App\Models\Inscricao;
+use Filament\Actions\Exports\Enums\ExportFormat;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Section;
@@ -17,6 +19,7 @@ use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ExportAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
@@ -92,9 +95,19 @@ class InscricaoResource extends Resource
                     'Aprovado' => 'danger',
                 })->searchable()->sortable(),
                 TextColumn::make('cargo.nome')->label('Cargo')->searchable()->sortable(),
+                TextColumn::make('cargo.localidade')->label('Localidade')->searchable()->sortable(),
                 TextColumn::make('cota')->searchable()->sortable(),
                 TextColumn::make('pontuacao')->numeric(),
+                TextColumn::make('pontuacao_previa')->numeric(),
             ])
+            ->headerActions(
+                [
+                    ExportAction::make()->exporter(InscricaoExporter::class)->formats([
+                        ExportFormat::Xlsx,
+                        ExportFormat::Csv,
+                    ]),
+                ],
+            )
             ->filters([
                 TrashedFilter::make(),
             ])
@@ -105,6 +118,10 @@ class InscricaoResource extends Resource
             ->bulkActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
+                    ExportAction::make()->exporter(InscricaoExporter::class)->formats([
+                        ExportFormat::Xlsx,
+                        ExportFormat::Csv,
+                    ]),
                 ]),
             ]);
     }

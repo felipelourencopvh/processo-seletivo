@@ -57,8 +57,10 @@ new class () extends Component {
                     <x-slot:actions>
                         <x-button
                             label="Clique aqui para baixar"
+                            icon="s-cloud-arrow-down"
                             class="btn-primary btn-sm"
                             :link="$anexo->getFirstMediaUrl()"
+                            responsive
                             external
                         />
                     </x-slot>

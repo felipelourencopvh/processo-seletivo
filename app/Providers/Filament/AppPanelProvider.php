@@ -68,6 +68,7 @@ class AppPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
+            ->databaseNotifications()
             ->tenant(Processo::class, slugAttribute: 'slug', ownershipRelationship: 'processo')
             ->tenantProfile(EditProcessoSeletivo::class)
             ->navigationItems([
