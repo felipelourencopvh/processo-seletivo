@@ -43,7 +43,7 @@
         {{-- MAIN --}}
         <x-layouts.parts.footer />
         {{-- TOAST area --}}
-        <x-mary-toast />
+        <x-toast />
 
         @stack('scripts')
         <script

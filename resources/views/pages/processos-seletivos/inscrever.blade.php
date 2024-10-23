@@ -139,12 +139,7 @@ new class () extends Component {
         </x-card>
     @else
         <x-card title="Processo Seletivo:" subtitle="{{ $processo->titulo }}">
-            <x-button
-                label="Já possui uma inscrição, para consultar as inscrições, utilize a opção Meu Perfil"
-                class="btn-error"
-                wire:click="save3"
-                spinner
-            />
+            <x-button label="Inscrições encerradas" class="btn-error" wire:click="save3" spinner />
         </x-card>
     @endif
     <livewire:processos-seletivos.selecionar-cargo wire:model="cargo" />

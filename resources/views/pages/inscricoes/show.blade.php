@@ -10,6 +10,7 @@ new class () extends Component {
     public string                $uuid;
     public ?App\Models\Inscricao $inscricao;
     public array                 $file = [];
+    public bool                  $habilitado = false;
 
     public function mount()
     {
@@ -20,6 +21,10 @@ new class () extends Component {
             ->firstOrFail();
 
         $this->file = $this->inscricao->documentos->pluck('documento', 'id')->toArray();
+
+        if ( ! $this->inscricao->processo->status->isAberto()) {
+            $this->habilitado = false;
+        }
     }
 
     public function save()
@@ -33,7 +38,7 @@ new class () extends Component {
             }
         }
 
-        $this->success('Documento enviado com sucesso', redirectTo: '/candidato');
+        $this->success('Documento enviado com sucesso');
     }
 } ?>
 
@@ -50,9 +55,50 @@ new class () extends Component {
             <x-input label="Data da Inscrição" value="{{ $inscricao->created_at->format('d/m/Y H:i') }}" readonly />
         </x-card>
 
-        <x-card title="Envio de Documentos" subtitle="clique em Salvar para confirmar o envio" separator shadow>
+        @if ($this->habilitado)
+            <x-card title="Envio de Documentos" subtitle="clique em Salvar para confirmar o envio" separator shadow>
+                <x-form wire:submit="save">
+                    @foreach ($inscricao->documentos->groupBy('processo_cargo_documento_id') as $items)
+                        <x-card
+                            class="bg-blue-5 mb-10"
+                            title="{{$items->first()->cargoDocumento->documento}}"
+                            subtitle="Pontuação por Documento: {{  $items->first()->pontuacao_previa }}"
+                        >
+                            @foreach ($items as $documento)
+                                @if ($documento->enviado)
+                                    <x-button
+                                        label="Clique aqui para baixar"
+                                        class="btn-success btn-sm"
+                                        :link="$documento->getFirstMediaUrl()"
+                                        external
+                                    />
+                                @else
+                                    <x-file
+                                        wire:model="file.{{$documento->id}}"
+                                        hint="Somente arquivo PDF"
+                                        accept="application/pdf"
+                                    />
+                                @endif
+                            @endforeach
+                        </x-card>
+                    @endforeach
+
+                    <x-slot:actions>
+                        <x-button
+                            label="Salvar"
+                            icon="o-paper-airplane"
+                            class="btn-primary"
+                            type="submit"
+                            spinner="save"
+                        />
+                    </x-slot>
+                </x-form>
+            </x-card>
+        @endif
+
+        <x-card title="Documentos Enviados" separator shadow>
             <x-form wire:submit="save">
-                @foreach ($inscricao->documentos->groupBy('processo_cargo_documento_id') as $items)
+                @foreach ($inscricao->documentos->where('enviado', true)->groupBy('processo_cargo_documento_id') as $items)
                     <x-card
                         class="bg-blue-5 mb-10"
                         title="{{$items->first()->cargoDocumento->documento}}"
@@ -65,12 +111,6 @@ new class () extends Component {
                                     class="btn-success btn-sm"
                                     :link="$documento->getFirstMediaUrl()"
                                     external
-                                />
-                            @else
-                                <x-file
-                                    wire:model="file.{{$documento->id}}"
-                                    hint="Somente arquivo PDF"
-                                    accept="application/pdf"
                                 />
                             @endif
                         @endforeach
