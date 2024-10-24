@@ -105,7 +105,7 @@ class InscricaoResource extends Resource
                     ExportAction::make()->exporter(InscricaoExporter::class)->formats([
                         ExportFormat::Xlsx,
                         ExportFormat::Csv,
-                    ]),
+                    ])->chunkSize(1000),
                 ],
             )
             ->filters([

@@ -19,7 +19,6 @@
     "filament/spatie-laravel-media-library-plugin": "^3.2",
     "guava/filament-icon-picker": "^2.0",
     "laravel/framework": "^11.9",
-    "laravel/horizon": "^5.29",
     "laravel/tinker": "^2.9",
     "laravellegends/pt-br-validator": "^11.0",
     "leandrocfe/filament-ptbr-form-fields": "^3.0",
@@ -28,8 +27,7 @@
     "lorisleiva/laravel-actions": "^2.8",
     "owenvoke/blade-fontawesome": "^2.6",
     "robsontenorio/mary": "^1.40",
-    "spatie/laravel-activitylog": "^4.8",
-    "stephenjude/filament-debugger": "^3.1"
+    "spatie/laravel-activitylog": "^4.8"
   },
   "require-dev": {
     "fakerphp/faker": "^1.23",

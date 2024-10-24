@@ -21,7 +21,13 @@ class InscricaoExporter extends Exporter
             ExportColumn::make('user.name')->label('Nome'),
             ExportColumn::make('user.email')->label('E-Mail'),
             ExportColumn::make('user.info.documento')->label('CPF'),
-            ExportColumn::make('user.info.data_nascimento')->label('Data de Nascimento')->formatStateUsing(fn (string $state): string => date('d/m/Y', strtotime($state))),
+            ExportColumn::make('user.info.data_nascimento')->label('Data de Nascimento')->formatStateUsing(function (?string $state): string {
+                if (empty($state)) {
+                    return '';
+                }
+
+                return date('d/m/Y', strtotime($state));
+            }),
             ExportColumn::make('user.info.sexo')->label('Sexo'),
             ExportColumn::make('user.info.rg')->label('RG'),
             ExportColumn::make('user.info.filiacao_mae')->label('Filiação (Mãe)'),
