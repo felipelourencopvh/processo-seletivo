@@ -19,6 +19,7 @@
     "filament/spatie-laravel-media-library-plugin": "^3.2",
     "guava/filament-icon-picker": "^2.0",
     "laravel/framework": "^11.9",
+    "laravel/horizon": "^5.29",
     "laravel/tinker": "^2.9",
     "laravellegends/pt-br-validator": "^11.0",
     "leandrocfe/filament-ptbr-form-fields": "^3.0",
