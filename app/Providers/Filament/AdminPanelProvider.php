@@ -90,12 +90,8 @@ class AdminPanelProvider extends PanelProvider
                         'default' => 1,
                         'sm' => 2,
                     ]),
-                DebuggerPlugin::make()
-                    ->pulseNavigation(false)
-                    ->telescopeNavigation(false)
-                    ->horizonNavigation(
-                        condition: fn () => auth()->user()->hasRole('super_admin'),
-                    ),
+                DebuggerPlugin::make(),
+
             ])
             ->databaseNotifications()
             ->viteTheme('resources/css/filament/admin/theme.css');
