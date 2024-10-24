@@ -28,7 +28,8 @@
     "lorisleiva/laravel-actions": "^2.8",
     "owenvoke/blade-fontawesome": "^2.6",
     "robsontenorio/mary": "^1.40",
-    "spatie/laravel-activitylog": "^4.8"
+    "spatie/laravel-activitylog": "^4.8",
+    "stephenjude/filament-debugger": "^3.1"
   },
   "require-dev": {
     "fakerphp/faker": "^1.23",
