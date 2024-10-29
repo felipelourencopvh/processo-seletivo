@@ -8,6 +8,7 @@ use App\Models\Inscricao;
 use Filament\Actions\Exports\ExportColumn;
 use Filament\Actions\Exports\Exporter;
 use Filament\Actions\Exports\Models\Export;
+use Illuminate\Support\Str;
 
 class InscricaoExporter extends Exporter
 {
@@ -21,12 +22,26 @@ class InscricaoExporter extends Exporter
             ExportColumn::make('user.name')->label('Nome'),
             ExportColumn::make('user.email')->label('E-Mail'),
             ExportColumn::make('user.info.documento')->label('CPF'),
+            ExportColumn::make('documento_mascara')->label('CPF (com Máscara)')->state(function (Inscricao $record): string {
+                if (empty($record->user?->info?->documento)) {
+                    return '';
+                }
+
+                return Str::cpfCnpjMask($record->user->info->documento);
+            }),
             ExportColumn::make('user.info.data_nascimento')->label('Data de Nascimento')->formatStateUsing(function (?string $state): string {
                 if (empty($state)) {
                     return '';
                 }
 
                 return date('d/m/Y', strtotime($state));
+            }),
+            ExportColumn::make('data_nascimento_mascara')->label('Data de Nascimento (com Máscara)')->state(function (Inscricao $record): string {
+                if (empty($record->user?->info?->data_nascimento)) {
+                    return '';
+                }
+
+                return  '**/**/'.date('Y', strtotime($record->user->info->data_nascimento));
             }),
             ExportColumn::make('user.info.sexo')->label('Sexo'),
             ExportColumn::make('user.info.rg')->label('RG'),
