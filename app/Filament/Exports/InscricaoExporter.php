@@ -53,7 +53,8 @@ class InscricaoExporter extends Exporter
             ExportColumn::make('cargo.nome')->label('Cargo'),
             ExportColumn::make('cargo.localidade')->label('Localidade'),
             ExportColumn::make('cota'),
-            ExportColumn::make('pontuacao'),
+            ExportColumn::make('pontuacao')->label('Pontuação'),
+            ExportColumn::make('pontuacao_previa')->label('Pontuação Prévia'),
         ];
     }
 
