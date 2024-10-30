@@ -16,7 +16,8 @@ class CalculaMediaAction
         $inscricao = Inscricao::find($inscricaoId);
 
         $media = $inscricao->documentos()->where('enviado', true)->where('aprovado', true)->sum('pontuacao_previa');
+        $mediaPrevia = $inscricao->documentos()->sum('pontuacao_previa');
 
-        return $inscricao->update(['pontuacao' => $media]);
+        return $inscricao->update(['pontuacao' => $media, 'pontuacao_previa' => $mediaPrevia]);
     }
 }

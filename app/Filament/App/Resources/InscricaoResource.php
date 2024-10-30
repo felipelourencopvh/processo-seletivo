@@ -68,6 +68,9 @@ class InscricaoResource extends Resource
                         ->required(),
 
                     TextInput::make('pontuacao')
+                        ->numeric()->label('Pontuação'),
+
+                    TextInput::make('pontuacao_previa')->label('Pontuação Prévia')
                         ->numeric(),
                 ]),
                 Section::make([
@@ -97,8 +100,8 @@ class InscricaoResource extends Resource
                 TextColumn::make('cargo.nome')->label('Cargo')->searchable()->sortable(),
                 TextColumn::make('cargo.localidade')->label('Localidade')->searchable()->sortable(),
                 TextColumn::make('cota')->searchable()->sortable(),
-                TextColumn::make('pontuacao')->numeric(),
-                TextColumn::make('pontuacao_previa')->numeric(),
+                TextColumn::make('pontuacao')->numeric()->sortable(),
+                TextColumn::make('pontuacao_previa')->numeric()->sortable(),
             ])
             ->headerActions(
                 [

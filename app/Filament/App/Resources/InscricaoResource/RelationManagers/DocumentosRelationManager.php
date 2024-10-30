@@ -12,7 +12,8 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables\Actions\Action;
-use Filament\Tables\Columns\Summarizers\Count;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Columns\Summarizers\Sum;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Enums\ActionsPosition;
@@ -57,6 +58,8 @@ class DocumentosRelationManager extends RelationManager
 
     public function table(Table $table): Table
     {
+        $isAdmin = auth()->user()->hasRole('super_admin');
+
         return $table
             ->recordTitleAttribute('id')
             ->columns([
@@ -69,10 +72,10 @@ class DocumentosRelationManager extends RelationManager
                         CalculaMediaAction::run($record->inscricao_id);
                     }),
                 TextColumn::make('pontuacao_previa')->label('Pontuação Prévia')->summarize(
-                    Count::make('Total Prévio')->label('Total Prévio')->query(fn ($query) => $query->where('enviado', true)),
+                    Sum::make('Total Prévio')->label('Total Prévio')->query(fn ($query) => $query->where('enviado', true)),
                 ),
                 TextColumn::make('pontuacao')->label('Pontuação Final')->summarize(
-                    Count::make('Total Final')->label('Total Final')->query(fn ($query) => $query->where('enviado', true)->where('aprovado', true)),
+                    Sum::make('Total Final')->label('Total Final')->query(fn ($query) => $query->where('enviado', true)->where('aprovado', true)),
                 ),
             ])
             ->actions([
@@ -81,6 +84,9 @@ class DocumentosRelationManager extends RelationManager
                     ->hidden(fn (InscricaoDocumento $record) => ! $record->enviado)
                     ->url(fn (InscricaoDocumento $record): string => $record->getFirstMediaUrl())
                     ->openUrlInNewTab(),
+                DeleteAction::make()->visible($isAdmin)->after(function (InscricaoDocumento $record) {
+                    CalculaMediaAction::run($record->inscricao_id);
+                }),
             ], position: ActionsPosition::BeforeColumns)
             ->bulkActions([
             ])->paginated(false);
