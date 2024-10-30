@@ -45,6 +45,18 @@ class AppServiceProvider extends ServiceProvider
             }, $str);
         });
 
+        Str::macro('toBrl', static function ($state = null) {
+            if (blank($state)) {
+                return null;
+            }
+
+            if ( ! is_numeric($state)) {
+                return $state;
+            }
+
+            return number_format($state, 2, ',', '.');
+        });
+
         Builder::macro('pluckWithIdName', fn ($idColumn = null, $nameColumn = null): Collection => $this->pluck($nameColumn, $idColumn)->map(fn ($value, $id): array => ['id' => $id, 'name' => $value])->values());
 
         FilamentView::registerRenderHook(
