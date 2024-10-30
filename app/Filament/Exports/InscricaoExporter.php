@@ -53,11 +53,11 @@ class InscricaoExporter extends Exporter
             ExportColumn::make('cargo.nome')->label('Cargo'),
             ExportColumn::make('cargo.localidade')->label('Localidade'),
             ExportColumn::make('cota'),
-            ExportColumn::make('pontuacao')->label('Pontuação')->state(function (Inscricao $record): string {
+            ExportColumn::make('pontuacao')->label('Pontuação')->state(function (Inscricao $record): ?string {
 
                 return Str::toBrl($record->pontuacao);
             }),
-            ExportColumn::make('pontuacao_previa')->label('Pontuação Prévia')->state(function (Inscricao $record): string {
+            ExportColumn::make('pontuacao_previa')->label('Pontuação Prévia')->state(function (Inscricao $record): ?string {
 
                 return Str::toBrl($record->pontuacao_previa);
             }),
