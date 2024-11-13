@@ -10,6 +10,8 @@ new class () extends Component {
     public string                $uuid;
     public ?App\Models\Inscricao $inscricao;
     public array                 $file = [];
+    public ?string               $recurso;
+    public ?string               $analiseRecurso;
     public bool                  $habilitado = false;
 
     public function mount()
@@ -21,6 +23,8 @@ new class () extends Component {
             ->firstOrFail();
 
         $this->file = $this->inscricao->documentos->pluck('documento', 'id')->toArray();
+        $this->recurso = $this->inscricao->recurso;
+        $this->analiseRecurso = $this->inscricao->analise_recurso;
 
         if ( ! $this->inscricao->processo->status->isAberto()) {
             $this->habilitado = false;
@@ -54,6 +58,16 @@ new class () extends Component {
             <x-input label="Nível de Ensino" value="{{ $inscricao->cargo->nivel->getLabel() }}" readonly />
             <x-input label="Data da Inscrição" value="{{ $inscricao->created_at->format('d/m/Y H:i') }}" readonly />
         </x-card>
+
+        @if ($this->recurso)
+            <x-card title="Recurso" separator shadow>
+                <x-editor wire:model="recurso" label="Recurso" disabled />
+                @if ($this->analiseRecurso)
+                    <x-mary-menu-separator />
+                    <x-editor wire:model="analiseRecurso" label="Resultado da Análise" disabled />
+                @endif
+            </x-card>
+        @endif
 
         @if ($this->habilitado)
             <x-card title="Envio de Documentos" subtitle="clique em Salvar para confirmar o envio" separator shadow>

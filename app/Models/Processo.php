@@ -44,6 +44,8 @@ class Processo extends Model implements HasName
         'data_resultado',
         'data_suspensao_parcial',
         'data_suspensao_integral',
+        'data_recurso_inicio',
+        'data_recurso_fim',
         'secretaria_id',
     ];
 
@@ -55,12 +57,13 @@ class Processo extends Model implements HasName
                     Tabs\Tab::make('Informações Gerais')
                         ->schema([
                             Section::make([
-                                TextInput::make('titulo')->label('Título')->live(true)->afterStateUpdated(function (
-                                    Set $set,
-                                    ?string $state,
-                                ) {
-                                    return $set('slug', Str::slug($state));
-                                })->required()->unique(ignoreRecord: true)->maxLength(255),
+                                TextInput::make('titulo')->label('Título')->live(true)
+                                    ->afterStateUpdated(function (
+                                        Set $set,
+                                        ?string $state,
+                                    ) {
+                                        return $set('slug', Str::slug($state));
+                                    })->required()->unique(ignoreRecord: true)->maxLength(255),
 
                                 TextInput::make('slug')->maxLength(255)->unique(ignoreRecord: true)->label('Slug'),
 
@@ -75,6 +78,9 @@ class Processo extends Model implements HasName
                                 DateTimePicker::make('data_suspensao_parcial')->label('Data da Suspensao Parcial')->seconds(false),
 
                                 DateTimePicker::make('data_suspensao_integral')->label('Data da Suspensao Integral')->seconds(false),
+
+                                DateTimePicker::make('data_recurso_inicio')->label('Início do Período de Recurso')->seconds(false),
+                                DateTimePicker::make('data_recurso_fim')->label('Fim do Período de Recurso')->seconds(false),
 
                                 Select::make('secretaria_id')
                                     ->label('Secretaria')
@@ -173,6 +179,16 @@ class Processo extends Model implements HasName
         return $this->hasMany(ProcessoCargo::class);
     }
 
+    public function isDentroPeriodoRecurso(): bool
+    {
+        if (empty($this->data_recurso_inicio) || empty($this->data_recurso_fim)) {
+            return false;
+        }
+        $hoje = now();
+
+        return $hoje >= $this->data_recurso_inicio and $hoje <= $this->data_recurso_fim;
+    }
+
     protected function status(): Attribute
     {
         return Attribute::make(
@@ -201,6 +217,8 @@ class Processo extends Model implements HasName
             'data_resultado' => 'date',
             'data_suspensao_parcial' => 'datetime',
             'data_suspensao_integral' => 'datetime',
+            'data_recurso_inicio' => 'datetime',
+            'data_recurso_fim' => 'datetime',
         ];
     }
 }

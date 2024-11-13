@@ -57,7 +57,7 @@ new class () extends Component {
     </div>
 
     <x-card title="Inscrições" separator shadow class="mt-8">
-        <x-table :rows="$inscricoes" :headers="$headers" link="/candidato/inscricoes/{id}">
+        <x-table :rows="$inscricoes" :headers="$headers">
             @scope('actions', $cargo)
                 <div class="flex items-center space-x-2">
                     <x-button
@@ -65,6 +65,13 @@ new class () extends Component {
                         class="btn-primary btn-xs"
                         link="/candidato/inscricoes/{{ $cargo->id }}"
                     />
+                    @if ($cargo->processo->isDentroPeriodoRecurso())
+                        <x-button
+                            label="Recurso"
+                            class="btn-warning btn-xs"
+                            link="/candidato/recurso/{{ $cargo->id }}"
+                        />
+                    @endif
                 </div>
             @endscope
         </x-table>

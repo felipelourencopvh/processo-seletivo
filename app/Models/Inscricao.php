@@ -21,7 +21,7 @@ class Inscricao extends Model
     use HasFactory;
     use HasUuids;
     protected $table = 'inscricoes';
-    protected $fillable = ['situacao', 'cota', 'pontuacao', 'pontuacao_previa', 'processo_id', 'user_id', 'cargo_id'];
+    protected $fillable = ['situacao', 'cota', 'pontuacao', 'pontuacao_previa', 'processo_id', 'user_id', 'cargo_id', 'recurso', 'analise_recurso'];
 
     public function cargo(): BelongsTo
     {

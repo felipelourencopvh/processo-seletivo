@@ -27936,17 +27936,6 @@ mark,
     padding: 0 var(--spacing-scale-half);
 }
 
-[disabled],
-.disabled {
-    cursor: not-allowed;
-    opacity: var(--disabled);
-}
-
-[disabled] *,
-.disabled * {
-    pointer-events: none;
-}
-
 .dragged {
     background: var(--status-dragged-background);
     box-shadow: 0 3px 6px var(--status-dragged-shadow);

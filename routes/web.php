@@ -24,6 +24,7 @@ Volt::route('/processos-seletivos/{processo:slug}', 'processos-seletivos.show')-
 Route::middleware('auth')->group(function () {
     Volt::route('/candidato', 'candidato.index')->name('candidato.index');
     Volt::route('/candidato/inscricoes/{uuid}', 'inscricoes.show')->name('inscricoes.show');
+    Volt::route('/candidato/recurso/{uuid}', 'inscricoes.recurso')->name('inscricoes.recurso');
     Volt::route('/candidato/editar', 'candidato.edit')->name('candidato.edit');
     Volt::route('/processos-seletivos/{processo:slug}/inscrever', 'processos-seletivos.inscrever')->name('processos-seletivos.inscrever');
 });

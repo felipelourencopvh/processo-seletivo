@@ -10,8 +10,10 @@ use App\Models\Inscricao;
 use Filament\Actions\Exports\Enums\ExportFormat;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -40,39 +42,53 @@ class InscricaoResource extends Resource
     {
         return $form
             ->schema([
-                Section::make([
-                    Placeholder::make('user.name')
-                        ->content(
-                            fn (Inscricao $record) => new HtmlString(
-                                '<a class="underline" href="'.route(
-                                    'filament.app.resources.app.resources.usuarios.edit',
-                                    ['record' => $record->user_id, 'tenant' => Filament::getTenant()],
-                                ).'">'.$record->user->name.'</a>',
-                            ),
-                        ),
-                    Select::make('situacao')->label('Situação')
-                        ->options([
-                            'Pendente' => 'Pendente',
-                            'Homologado' => 'Homologado',
-                            'Reprovado' => 'Reprovado',
-                            'Aprovado' => 'Aprovado',
-                        ])
-                        ->required(),
+                Tabs::make('Tabs')
+                    ->tabs([
+                        Tabs\Tab::make('Inscrição')
+                            ->schema([
+                                Section::make([
+                                    Placeholder::make('user.name')
+                                        ->content(
+                                            fn (Inscricao $record) => new HtmlString(
+                                                '<a class="underline" href="'.route(
+                                                    'filament.app.resources.app.resources.usuarios.edit',
+                                                    ['record' => $record->user_id, 'tenant' => Filament::getTenant()],
+                                                ).'">'.$record->user->name.'</a>',
+                                            ),
+                                        ),
+                                    Select::make('situacao')->label('Situação')
+                                        ->options([
+                                            'Pendente' => 'Pendente',
+                                            'Homologado' => 'Homologado',
+                                            'Reprovado' => 'Reprovado',
+                                            'Aprovado' => 'Aprovado',
+                                        ])
+                                        ->required(),
 
-                    Select::make('cota')->label('Cota')
-                        ->options([
-                            'ampla' => 'Ampla Concorrência',
-                            'pcd' => 'Pessoa com Deficiência',
-                            'ppp' => 'Pessoa Preta ou Parda',
-                        ])->disabled()
-                        ->required(),
+                                    Select::make('cota')->label('Cota')
+                                        ->options([
+                                            'ampla' => 'Ampla Concorrência',
+                                            'pcd' => 'Pessoa com Deficiência',
+                                            'ppp' => 'Pessoa Preta ou Parda',
+                                        ])->disabled()
+                                        ->required(),
 
-                    TextInput::make('pontuacao')
-                        ->numeric()->label('Pontuação'),
+                                    TextInput::make('pontuacao')
+                                        ->numeric()->label('Pontuação'),
 
-                    TextInput::make('pontuacao_previa')->label('Pontuação Prévia')
-                        ->numeric(),
-                ]),
+                                    TextInput::make('pontuacao_previa')->label('Pontuação Prévia')
+                                        ->numeric(),
+                                ]),
+                            ]),
+                        Tabs\Tab::make('Recurso')
+                            ->schema([
+                                Placeholder::make('recurso')->content(fn (?Inscricao $record): HtmlString => new HtmlString($record?->recurso)),
+                            ]),
+                        Tabs\Tab::make('Análise Recurso')
+                            ->schema([
+                                RichEditor::make('analise_recurso')->label('Resultado da Análise do Recurso'),
+                            ]),
+                    ])->persistTabInQueryString()->columnSpanFull(),
                 Section::make([
                     Placeholder::make('created_at')
                         ->label('Criado Em')
