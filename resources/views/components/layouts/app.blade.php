@@ -10,11 +10,6 @@
         <script src="https://cdn.jsdelivr.net/npm/photoswipe@5.4.3/dist/umd/photoswipe.umd.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/photoswipe@5.4.3/dist/umd/photoswipe-lightbox.umd.min.js"></script>
         <link href="https://cdn.jsdelivr.net/npm/photoswipe@5.4.3/dist/photoswipe.min.css" rel="stylesheet" />
-        {{-- TinyMCE --}}
-        <script
-            src="https://cdn.tiny.cloud/1/sw1p1mrx6fpsw4e8df0zrg00py7px4j60tap9ywi544t4q5n/tinymce/6/tinymce.min.js"
-            referrerpolicy="origin"
-        ></script>
 
         <!-- Fonte Rawline-->
         <link
