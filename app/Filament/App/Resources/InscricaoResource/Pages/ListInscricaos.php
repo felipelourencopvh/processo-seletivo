@@ -21,6 +21,10 @@ class ListInscricaos extends ListRecords
                 ->modifyQueryUsing(function ($query) {
                     $query->where('situacao', 'Pendente');
                 })->icon('heroicon-o-clock'),
+            'Recursos' => Tab::make('Recursos')
+                ->modifyQueryUsing(function ($query) {
+                    $query->whereNotNull('recurso');
+                })->icon('heroicon-o-clock'),
             'Homologado' => Tab::make('Homologado')
                 ->modifyQueryUsing(function ($query) {
                     $query->where('situacao', 'Homologado');

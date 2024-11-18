@@ -66,6 +66,10 @@
     "post-create-project-cmd": [
       "@php artisan key:generate --ansi",
       "@php artisan migrate --graceful --ansi"
+    ],
+    "dev": [
+      "Composer\\Config::disableProcessTimeout",
+      "npx concurrently -c \"#93c5fd,#fdba74\" \"sail up\" \"sleep 5 && sail npm run dev\" --names=docker,vite"
     ]
   },
   "extra": {
