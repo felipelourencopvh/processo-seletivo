@@ -62,7 +62,7 @@ new class () extends Component {
         @if ($this->recurso)
             <x-card title="Recurso" separator shadow>
                 <x-editor wire:model="recurso" label="Recurso" disabled />
-                @if ($this->analiseRecurso)
+                @if ($this->analiseRecurso && $inscricao->processo->isRecursoLiberado())
                     <x-mary-menu-separator />
                     <x-editor wire:model="analiseRecurso" label="Resultado da Análise" disabled />
                 @endif
