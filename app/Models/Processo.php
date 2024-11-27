@@ -197,7 +197,7 @@ class Processo extends Model implements HasName
             return false;
         }
 
-        return $this->data_liberacao_recurso >= now();
+        return $this->data_liberacao_recurso <= now();
     }
 
     protected function status(): Attribute
