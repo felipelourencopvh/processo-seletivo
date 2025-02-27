@@ -71,7 +71,7 @@ new class () extends Component {
     public function cargos()
     {
         return App\Models\ProcessoCargo::query()
-            ->where('processo_id', $this->processo->id) // Filtra pelo processo atual
+            ->where('processo_id', $this->processo->id)
             ->when($this->cota === 'ampla', fn (Builder $q) => $q->where('vagas_ampla', '>', 0))
             ->when($this->cota === 'ppp', fn (Builder $q) => $q->where('vagas_ppp', '>', 0))
             ->when($this->cota === 'pcd', fn (Builder $q) => $q->where('vagas_pcd', '>', 0))
