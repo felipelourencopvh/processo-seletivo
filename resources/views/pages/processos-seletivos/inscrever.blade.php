@@ -67,7 +67,6 @@ new class () extends Component {
             ['key' => 'vagas_ppp', 'label' => 'Vagas PPP*'],
         ];
     }
-
     public function cargos()
     {
         return App\Models\ProcessoCargo::query()
@@ -79,7 +78,6 @@ new class () extends Component {
             ->orderBy(...array_values($this->sortBy))
             ->get();
     }
-
     public function with(): array
     {
         return [
@@ -88,7 +86,6 @@ new class () extends Component {
         ];
     }
 } ?>
-
 <div>
     @if ($habilitado)
         @php
