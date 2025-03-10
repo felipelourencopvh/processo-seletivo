@@ -30,3 +30,14 @@ deploy-prod:
     - curl -X POST $WEBHOOK_TASKS?tag=$IMAGE_TAG
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
+
+deploy-homolog:
+  stage: deploy
+  image: alpine
+  script:
+    - apk add --update curl
+    - curl -X POST $WEBHOOK_APP_HOM?tag=$IMAGE_TAG
+    - curl -X POST $WEBHOOK_WORKER_HOM?tag=$IMAGE_TAG
+    - curl -X POST $WEBHOOK_TASKS_HOM?tag=$IMAGE_TAG
+  rules:
+    - if: ($CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "homolog")

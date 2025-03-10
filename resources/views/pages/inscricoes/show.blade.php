@@ -10,8 +10,8 @@ new class () extends Component {
     public string                $uuid;
     public ?App\Models\Inscricao $inscricao;
     public array                 $file = [];
-    public ?string               $recurso;
-    public ?string               $analiseRecurso;
+    public ?string               $recurso = null;
+    public ?string               $analiseRecurso = null;
     public bool                  $habilitado = false;
 
     public function mount()
@@ -127,10 +127,6 @@ new class () extends Component {
                         @endforeach
                     </x-card>
                 @endforeach
-
-                <x-slot:actions>
-                    <x-button label="Salvar" icon="o-paper-airplane" class="btn-primary" type="submit" spinner="save" />
-                </x-slot>
             </x-form>
         </x-card>
     </div>
