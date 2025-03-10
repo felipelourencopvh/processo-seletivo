@@ -11,6 +11,7 @@ new class () extends Component {
 
     public App\Models\Processo       $processo;
     public bool                      $habilitado = true;
+    public bool                      $possuiInscricao = false;
     public ?App\Models\ProcessoCargo $cargo;
 
     #[Livewire\Attributes\Url]
@@ -33,6 +34,7 @@ new class () extends Component {
     {
         if (auth()->user()->inscricoes()->where('processo_id', $this->processo->id)->exists()) {
             $this->habilitado = false;
+            $this->possuiInscricao = true;
         }
 
         if ( ! $this->processo->status->isAberto()) {
@@ -67,6 +69,7 @@ new class () extends Component {
             ['key' => 'vagas_ppp', 'label' => 'Vagas PPP*'],
         ];
     }
+
     public function cargos()
     {
         return App\Models\ProcessoCargo::query()
@@ -78,6 +81,7 @@ new class () extends Component {
             ->orderBy(...array_values($this->sortBy))
             ->get();
     }
+
     public function with(): array
     {
         return [
@@ -86,6 +90,7 @@ new class () extends Component {
         ];
     }
 } ?>
+
 <div>
     @if ($habilitado)
         @php
@@ -137,7 +142,12 @@ new class () extends Component {
         </x-card>
     @else
         <x-card title="Processo Seletivo:" subtitle="{{ $processo->titulo }}">
-            <x-button label="Inscrições encerradas" class="btn-error" wire:click="save3" spinner />
+            <x-button
+                label="{{ $possuiInscricao === true ? 'Já possui inscrição para esse Processo Seletivo' : 'Inscrições encerradas' }}"
+                class="btn-error"
+                wire:click="save3"
+                spinner
+            />
         </x-card>
     @endif
     <livewire:processos-seletivos.selecionar-cargo wire:model="cargo" />
