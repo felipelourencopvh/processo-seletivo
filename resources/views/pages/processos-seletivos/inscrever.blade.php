@@ -141,14 +141,20 @@ new class () extends Component {
             </x-form>
         </x-card>
     @else
-        <x-card title="Processo Seletivo:" subtitle="{{ $processo->titulo }}">
-            <x-button
-                label="{{ $possuiInscricao === true ? 'Já possui inscrição para esse Processo Seletivo' : 'Inscrições encerradas' }}"
-                class="btn-error"
-                wire:click="save3"
-                spinner
-            />
-        </x-card>
+        @if ($possuiInscricao)
+            <x-card title="Processo Seletivo:" subtitle="{{ $processo->titulo }}">
+                <x-button
+                    label="Já possui inscrição para esse Processo Seletivo, clique aqui para ver suas inscrições"
+                    class="btn-error"
+                    :link="route('candidato.index')"
+                    spinner
+                />
+            </x-card>
+        @else
+            <x-card title="Processo Seletivo:" subtitle="{{ $processo->titulo }}">
+                <x-button label="Inscrições encerradas" class="btn-error" wire:click="save3" spinner />
+            </x-card>
+        @endif
     @endif
     <livewire:processos-seletivos.selecionar-cargo wire:model="cargo" />
 </div>
