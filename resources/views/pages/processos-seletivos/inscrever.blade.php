@@ -67,10 +67,10 @@ new class () extends Component {
             ['key' => 'vagas_ppp', 'label' => 'Vagas PPP*'],
         ];
     }
-
     public function cargos()
     {
         return App\Models\ProcessoCargo::query()
+            ->where('processo_id', $this->processo->id)
             ->when($this->cota === 'ampla', fn (Builder $q) => $q->where('vagas_ampla', '>', 0))
             ->when($this->cota === 'ppp', fn (Builder $q) => $q->where('vagas_ppp', '>', 0))
             ->when($this->cota === 'pcd', fn (Builder $q) => $q->where('vagas_pcd', '>', 0))
@@ -78,7 +78,6 @@ new class () extends Component {
             ->orderBy(...array_values($this->sortBy))
             ->get();
     }
-
     public function with(): array
     {
         return [
@@ -87,7 +86,6 @@ new class () extends Component {
         ];
     }
 } ?>
-
 <div>
     @if ($habilitado)
         @php

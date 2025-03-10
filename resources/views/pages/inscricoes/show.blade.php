@@ -25,10 +25,7 @@ new class () extends Component {
         $this->file = $this->inscricao->documentos->pluck('documento', 'id')->toArray();
         $this->recurso = $this->inscricao->recurso;
         $this->analiseRecurso = $this->inscricao->analise_recurso;
-
-        if ( ! $this->inscricao->processo->status->isAberto()) {
-            $this->habilitado = false;
-        }
+        $this->habilitado = $this->inscricao->processo->status->isAberto();
     }
 
     public function save()
