@@ -70,10 +70,11 @@ new class () extends Component {
             <x-card title="Envio de Documentos" subtitle="clique em Salvar para confirmar o envio" separator shadow>
                 <x-form wire:submit="save">
                     @foreach ($inscricao->documentos->groupBy('processo_cargo_documento_id') as $items)
+                        @php($pontuacaoMaxima = $items->sum('pontuacao_previa'))
                         <x-card
                             class="bg-blue-5 mb-10"
                             title="{{$items->first()->cargoDocumento->documento}}"
-                            subtitle="Pontuação por Documento: {{  $items->first()->pontuacao_previa }}"
+                            subtitle="{{ $pontuacaoMaxima > 0 ? 'Pontuação Máxima: ' .  $items->sum('pontuacao_previa') : null }}"
                         >
                             @foreach ($items as $documento)
                                 @if ($documento->enviado)
@@ -110,10 +111,11 @@ new class () extends Component {
         <x-card title="Documentos Enviados" separator shadow>
             <x-form wire:submit="save">
                 @foreach ($inscricao->documentos->where('enviado', true)->groupBy('processo_cargo_documento_id') as $items)
+                    @php($pontuacaoMaxima = $items->sum('pontuacao_previa'))
                     <x-card
                         class="bg-blue-5 mb-10"
                         title="{{$items->first()->cargoDocumento->documento}}"
-                        subtitle="Pontuação por Documento: {{  $items->first()->pontuacao_previa }}"
+                        subtitle="{{ $pontuacaoMaxima > 0 ? 'Pontuação Máxima: ' .  $items->sum('pontuacao_previa') : null }}"
                     >
                         @foreach ($items as $documento)
                             @if ($documento->enviado)
