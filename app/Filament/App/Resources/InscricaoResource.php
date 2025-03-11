@@ -168,7 +168,7 @@ class InscricaoResource extends Resource
 
     public static function getNavigationBadge(): ?string
     {
-        return (string) static::getModel()::count();
+        return (string) Inscricao::query()->where('processo_id', Filament::getTenant()->id)->count();
     }
 
     public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
