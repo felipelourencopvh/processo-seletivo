@@ -25,6 +25,7 @@ use Filament\Tables\Actions\ExportAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\HtmlString;
 
@@ -32,8 +33,8 @@ class InscricaoResource extends Resource
 {
     protected static ?string $model = Inscricao::class;
 
-    protected static ?string $slug = 'inscricoes';
-    protected static ?string $label = 'Inscrição';
+    protected static ?string $slug        = 'inscricoes';
+    protected static ?string $label       = 'Inscrição';
     protected static ?string $pluralLabel = 'Inscrições';
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
@@ -50,34 +51,35 @@ class InscricaoResource extends Resource
                                     Placeholder::make('user.name')
                                         ->content(
                                             fn (Inscricao $record) => new HtmlString(
-                                                '<a class="underline" href="'.route(
+                                                '<a class="underline" href="' . route(
                                                     'filament.app.resources.app.resources.usuarios.edit',
                                                     ['record' => $record->user_id, 'tenant' => Filament::getTenant()],
-                                                ).'">'.$record->user->name.'</a>',
+                                                ) . '">' . $record->user->name . '</a>',
                                             ),
                                         ),
                                     Select::make('situacao')->label('Situação')
                                         ->options([
-                                            'Pendente' => 'Pendente',
+                                            'Pendente'   => 'Pendente',
                                             'Homologado' => 'Homologado',
-                                            'Reprovado' => 'Reprovado',
-                                            'Aprovado' => 'Aprovado',
+                                            'Reprovado'  => 'Reprovado',
+                                            'Aprovado'   => 'Aprovado',
                                         ])
                                         ->required(),
 
                                     Select::make('cota')->label('Cota')
                                         ->options([
                                             'ampla' => 'Ampla Concorrência',
-                                            'pcd' => 'Pessoa com Deficiência',
-                                            'ppp' => 'Pessoa Preta ou Parda',
-                                        ])->disabled()
+                                            'pcd'   => 'Pessoa com Deficiência',
+                                            'ppp'   => 'Pessoa Preta ou Parda',
+                                        ])
+                                        ->disabled()
                                         ->required(),
 
-                                    TextInput::make('pontuacao')
-                                        ->numeric()->label('Pontuação'),
+                                    TextInput::make('pontuacao')->numeric()->label('Pontuação'),
 
-                                    TextInput::make('pontuacao_previa')->label('Pontuação Prévia')
-                                        ->numeric(),
+                                    TextInput::make('pontuacao_previa')->label('Pontuação Prévia')->numeric(),
+
+                                    RichEditor::make('observacao')->label('Observação'),
                                 ]),
                             ]),
                         Tabs\Tab::make('Recurso')
@@ -108,10 +110,10 @@ class InscricaoResource extends Resource
                 TextColumn::make('user.name')->label('Nome')->searchable()->sortable(),
                 TextColumn::make('user.info.documento')->label('CPF')->searchable()->sortable(),
                 TextColumn::make('situacao')->label('Situação')->badge()->color(fn (string $state): string => match ($state) {
-                    'Pendente' => 'info',
+                    'Pendente'   => 'info',
                     'Homologado' => 'warning',
-                    'Reprovado' => 'success',
-                    'Aprovado' => 'danger',
+                    'Reprovado'  => 'success',
+                    'Aprovado'   => 'danger',
                 })->searchable()->sortable(),
                 TextColumn::make('cargo.nome')->label('Cargo')->searchable()->sortable(),
                 TextColumn::make('cargo.localidade')->label('Localidade')->searchable()->sortable(),
@@ -155,9 +157,9 @@ class InscricaoResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => InscricaoResource\Pages\ListInscricaos::route('/'),
+            'index'  => InscricaoResource\Pages\ListInscricaos::route('/'),
             'create' => InscricaoResource\Pages\CreateInscricao::route('/create'),
-            'edit' => InscricaoResource\Pages\EditInscricao::route('/{record}/edit'),
+            'edit'   => InscricaoResource\Pages\EditInscricao::route('/{record}/edit'),
         ];
     }
 
@@ -171,7 +173,7 @@ class InscricaoResource extends Resource
         return (string) Inscricao::query()->where('processo_id', Filament::getTenant()->id)->count();
     }
 
-    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()
             ->withoutGlobalScopes([
