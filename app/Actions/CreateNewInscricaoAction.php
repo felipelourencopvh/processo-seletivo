@@ -23,7 +23,7 @@ class CreateNewInscricaoAction
         }
 
         $inscricao              = new Inscricao();
-        $inscricao->situacao    = 'Pendente';
+        $inscricao->situacao    = 'Inscrito';
         $inscricao->user_id     = auth()->id();
         $inscricao->processo_id = $cargo->processo_id;
         $inscricao->cargo_id    = $cargo->id;

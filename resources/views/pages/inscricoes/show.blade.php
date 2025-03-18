@@ -1,38 +1,44 @@
 <?php
 
+use App\Models\Inscricao;
+use App\Models\InscricaoDocumento;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Livewire\Volt\Component;
+use Livewire\WithFileUploads;
+use Mary\Traits\Toast;
 
 new class () extends Component {
-    use Livewire\WithFileUploads;
-    use Mary\Traits\Toast;
+    use WithFileUploads;
+    use Toast;
 
-    public string                $uuid;
-    public ?App\Models\Inscricao $inscricao;
-    public array                 $file = [];
-    public ?string               $recurso = null;
-    public ?string               $analiseRecurso = null;
-    public bool                  $habilitado = false;
+    public string     $uuid;
+    public ?Inscricao $inscricao;
+    public array      $file           = [];
+    public ?string    $recurso        = null;
+    public ?string    $analiseRecurso = null;
+    public ?string    $observacao     = null;
+    public bool       $habilitado     = false;
 
     public function mount()
     {
-        $this->inscricao = App\Models\Inscricao::query()
+        $this->inscricao = Inscricao::query()
             ->with(['documentos.cargoDocumento', 'cargo', 'processo'])
             ->where('id', $this->uuid)
             ->where('user_id', auth()->id())
             ->firstOrFail();
 
-        $this->file = $this->inscricao->documentos->pluck('documento', 'id')->toArray();
-        $this->recurso = $this->inscricao->recurso;
+        $this->file           = $this->inscricao->documentos->pluck('documento', 'id')->toArray();
+        $this->recurso        = $this->inscricao->recurso;
         $this->analiseRecurso = $this->inscricao->analise_recurso;
-        $this->habilitado = $this->inscricao->processo->status->isAberto();
+        $this->observacao     = $this->inscricao->observacao;
+        $this->habilitado     = $this->inscricao->processo->status->isAberto();
     }
 
     public function save()
     {
         foreach ($this->file as $key => $file) {
             if ($file instanceof TemporaryUploadedFile) {
-                $documento = App\Models\InscricaoDocumento::query()->where('id', $key)->where('inscricao_id', $this->uuid)->first();
+                $documento          = InscricaoDocumento::query()->where('id', $key)->where('inscricao_id', $this->uuid)->first();
                 $documento->enviado = true;
                 $documento->save();
                 $documento->addMedia($file->getRealPath())->usingName($file->getClientOriginalName())->toMediaCollection('default');
@@ -54,7 +60,14 @@ new class () extends Component {
             <x-input label="Localidade" value="{{ $inscricao->cargo->localidade }}" readonly />
             <x-input label="Nível de Ensino" value="{{ $inscricao->cargo->nivel->getLabel() }}" readonly />
             <x-input label="Data da Inscrição" value="{{ $inscricao->created_at->format('d/m/Y H:i') }}" readonly />
+            <x-input label="Situação" value="{{ $inscricao->situacao }}" readonly />
         </x-card>
+
+        @if (! empty($this->observacao))
+            <x-card title="Observação" separator shadow>
+                {!! $this->observacao !!}
+            </x-card>
+        @endif
 
         @if ($this->recurso)
             <x-card title="Recurso" separator shadow>

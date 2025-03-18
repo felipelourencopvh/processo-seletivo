@@ -1,9 +1,11 @@
 <?php
 
+use App\Models\Inscricao;
+use App\Models\User;
 use Livewire\Volt\Component;
 
 new class () extends Component {
-    public ?App\Models\User $user;
+    public ?User $user;
 
     public function mount()
     {
@@ -17,6 +19,7 @@ new class () extends Component {
             ['key' => 'processo.titulo', 'label' => 'Processo'],
             ['key' => 'cargo.nome', 'label' => 'Cargo'],
             ['key' => 'cargo.localidade', 'label' => 'Localidade'],
+            ['key' => 'situacao', 'label' => 'Situação'],
             ['key' => 'cota', 'label' => 'Cota'],
         ];
     }
@@ -24,8 +27,8 @@ new class () extends Component {
     public function with(): array
     {
         return [
-            'inscricoes' => App\Models\Inscricao::query()->with(['cargo', 'processo'])->whereUserId($this->user->id)->get(),
-            'headers' => $this->headers(),
+            'inscricoes' => Inscricao::query()->with(['cargo', 'processo'])->whereUserId($this->user->id)->get(),
+            'headers'    => $this->headers(),
         ];
     }
 } ?>

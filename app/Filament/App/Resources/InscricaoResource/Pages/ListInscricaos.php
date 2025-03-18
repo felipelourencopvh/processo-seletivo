@@ -16,10 +16,10 @@ class ListInscricaos extends ListRecords
     public function getTabs(): array
     {
         return [
-            'all' => Tab::make('Todos'),
-            'Pendente' => Tab::make('Pendente')
+            'all'      => Tab::make('Todos'),
+            'Inscrito' => Tab::make('Inscrito')
                 ->modifyQueryUsing(function ($query) {
-                    $query->where('situacao', 'Pendente');
+                    $query->where('situacao', 'Inscrito');
                 })->icon('heroicon-o-clock'),
             'Recursos' => Tab::make('Recursos')
                 ->modifyQueryUsing(function ($query) {
@@ -30,6 +30,11 @@ class ListInscricaos extends ListRecords
                     $query->where('situacao', 'Homologado');
                 })
                 ->icon('heroicon-o-check-circle'),
+            'Não Homologado' => Tab::make('Não Homologado')
+                ->modifyQueryUsing(function ($query) {
+                    $query->where('situacao', 'Não Homologado');
+                })
+                ->icon('heroicon-o-x-circle'),
             'Reprovado' => Tab::make('Reprovado')
                 ->modifyQueryUsing(function ($query) {
                     $query->where('situacao', 'Reprovado');

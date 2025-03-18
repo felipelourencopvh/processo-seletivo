@@ -59,10 +59,12 @@ class InscricaoResource extends Resource
                                         ),
                                     Select::make('situacao')->label('Situação')
                                         ->options([
-                                            'Pendente'   => 'Pendente',
-                                            'Homologado' => 'Homologado',
-                                            'Reprovado'  => 'Reprovado',
-                                            'Aprovado'   => 'Aprovado',
+                                            'Inscrito'       => 'Inscrito',
+                                            'Pendente'       => 'Pendente',
+                                            'Homologado'     => 'Homologado',
+                                            'Não Homologado' => 'Não Homologado',
+                                            'Reprovado'      => 'Reprovado',
+                                            'Aprovado'       => 'Aprovado',
                                         ])
                                         ->required(),
 
@@ -110,10 +112,12 @@ class InscricaoResource extends Resource
                 TextColumn::make('user.name')->label('Nome')->searchable()->sortable(),
                 TextColumn::make('user.info.documento')->label('CPF')->searchable()->sortable(),
                 TextColumn::make('situacao')->label('Situação')->badge()->color(fn (string $state): string => match ($state) {
-                    'Pendente'   => 'info',
-                    'Homologado' => 'warning',
-                    'Reprovado'  => 'success',
-                    'Aprovado'   => 'danger',
+                    'Inscrito'       => 'info',
+                    'Pendente'       => 'info',
+                    'Aprovado'       => 'success',
+                    'Homologado'     => 'warning',
+                    'Não Homologado' => 'danger',
+                    'Reprovado'      => 'danger',
                 })->searchable()->sortable(),
                 TextColumn::make('cargo.nome')->label('Cargo')->searchable()->sortable(),
                 TextColumn::make('cargo.localidade')->label('Localidade')->searchable()->sortable(),
