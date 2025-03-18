@@ -63,7 +63,7 @@ new class () extends Component {
             <x-input label="Situação" value="{{ $inscricao->situacao }}" readonly />
         </x-card>
 
-        @if (! empty($this->observacao))
+        @if ( ! empty($this->observacao) && $this->inscricao->processo->data_homologacao >= now())
             <x-card title="Observação" separator shadow>
                 {!! $this->observacao !!}
             </x-card>

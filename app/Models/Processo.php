@@ -46,6 +46,7 @@ class Processo extends Model implements HasName
         'data_suspensao_integral',
         'data_recurso_inicio',
         'data_recurso_fim',
+        'data_homologacao',
         'data_liberacao_recurso',
         'secretaria_id',
     ];
@@ -79,7 +80,7 @@ class Processo extends Model implements HasName
                                 DateTimePicker::make('data_suspensao_parcial')->label('Data da Suspensao Parcial')->seconds(false),
 
                                 DateTimePicker::make('data_suspensao_integral')->label('Data da Suspensao Integral')->seconds(false),
-
+                                DateTimePicker::make('data_homologacao')->label('Data de Liberação de Homologação das Inscrições')->seconds(false),
                                 DateTimePicker::make('data_recurso_inicio')->label('Início do Período de Recurso')->seconds(false),
                                 DateTimePicker::make('data_recurso_fim')->label('Fim do Período de Recurso')->seconds(false),
                                 DateTimePicker::make('data_liberacao_recurso')->label('Data de Liberação do Recurso')->seconds(false),
@@ -113,9 +114,9 @@ class Processo extends Model implements HasName
                                         ->live(onBlur: true),
                                     Select::make('tipo')->label('Tipo de Anexo')
                                         ->options([
-                                            'editais' => 'Editais e Erratas',
+                                            'editais'    => 'Editais e Erratas',
                                             'resultados' => 'Resultados, Resoluções e Editais de Convocação',
-                                            'anexos' => 'Anexos',
+                                            'anexos'     => 'Anexos',
                                         ])
                                         ->required(),
                                     DatePicker::make('data_publicacao')->label('Data de Publicação')->required(),
@@ -224,13 +225,14 @@ class Processo extends Model implements HasName
     protected function casts()
     {
         return [
-            'data_abertura' => 'datetime',
-            'data_resultado' => 'date',
-            'data_suspensao_parcial' => 'datetime',
+            'data_abertura'           => 'datetime',
+            'data_resultado'          => 'date',
+            'data_suspensao_parcial'  => 'datetime',
             'data_suspensao_integral' => 'datetime',
-            'data_recurso_inicio' => 'datetime',
-            'data_recurso_fim' => 'datetime',
-            'data_liberacao_recurso' => 'datetime',
+            'data_recurso_inicio'     => 'datetime',
+            'data_recurso_fim'        => 'datetime',
+            'data_liberacao_recurso'  => 'datetime',
+            'data_homologacao'        => 'datetime',
         ];
     }
 }
