@@ -78,13 +78,13 @@ class InscricaoResource extends Resource
                                         ->required(),
 
                                     TextInput::make('pontuacao')->numeric()->label('Pontuação'),
-
                                     TextInput::make('pontuacao_previa')->label('Pontuação Prévia')->numeric(),
+                                    RichEditor::make('observacao')->label('Observação'),
                                 ]),
                             ]),
                         Tabs\Tab::make('Critério de Inscrição')
                             ->schema([
-                                RichEditor::make('observacao')->label('Critério de Inscrição'),
+                                RichEditor::make('criterio_inscricao')->label('Critério de Inscrição'),
                             ]),
                         Tabs\Tab::make('Critério de Classificação')
                             ->schema([
