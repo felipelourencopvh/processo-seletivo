@@ -63,23 +63,23 @@ new class () extends Component {
             <x-input label="Situação" value="{{ $inscricao->situacao }}" readonly />
         </x-card>
 
-        @if ( ! empty($this->criterioInscricao) && $this->inscricao->processo->data_homologacao >= now())
+        @if ( ! empty($criterioInscricao) && $inscricao->processo->data_homologacao <= now())
             <x-card title="Critério de Inscrição" separator shadow>
                 {!! $this->criterioInscricao !!}
             </x-card>
         @endif
 
-        @if ($this->recurso)
+        @if ($recurso)
             <x-card title="Recurso" separator shadow>
                 <x-editor wire:model="recurso" label="Recurso" disabled />
-                @if ($this->analiseRecurso && $inscricao->processo->isRecursoLiberado())
+                @if ($analiseRecurso && $inscricao->processo->isRecursoLiberado())
                     <x-mary-menu-separator />
                     <x-editor wire:model="analiseRecurso" label="Resultado da Análise" disabled />
                 @endif
             </x-card>
         @endif
 
-        @if ($this->habilitado)
+        @if ($habilitado)
             <x-card title="Envio de Documentos" subtitle="clique em Salvar para confirmar o envio" separator shadow>
                 <x-form wire:submit="save">
                     @foreach ($inscricao->documentos->groupBy('processo_cargo_documento_id') as $items)
