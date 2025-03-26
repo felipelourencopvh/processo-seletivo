@@ -47,6 +47,7 @@ class Processo extends Model implements HasName
         'data_recurso_inicio',
         'data_recurso_fim',
         'data_homologacao',
+        'data_liberacao_classificacao',
         'data_liberacao_recurso',
         'secretaria_id',
     ];
@@ -81,6 +82,7 @@ class Processo extends Model implements HasName
 
                                 DateTimePicker::make('data_suspensao_integral')->label('Data da Suspensao Integral')->seconds(false),
                                 DateTimePicker::make('data_homologacao')->label('Data de Liberação de Homologação das Inscrições')->seconds(false),
+                                DateTimePicker::make('data_liberacao_classificacao')->label('Data de Liberação de Critério de Classificação')->seconds(false),
                                 DateTimePicker::make('data_recurso_inicio')->label('Início do Período de Recurso')->seconds(false),
                                 DateTimePicker::make('data_recurso_fim')->label('Fim do Período de Recurso')->seconds(false),
                                 DateTimePicker::make('data_liberacao_recurso')->label('Data de Liberação do Recurso')->seconds(false),
@@ -225,14 +227,15 @@ class Processo extends Model implements HasName
     protected function casts()
     {
         return [
-            'data_abertura'           => 'datetime',
-            'data_resultado'          => 'date',
-            'data_suspensao_parcial'  => 'datetime',
-            'data_suspensao_integral' => 'datetime',
-            'data_recurso_inicio'     => 'datetime',
-            'data_recurso_fim'        => 'datetime',
-            'data_liberacao_recurso'  => 'datetime',
-            'data_homologacao'        => 'datetime',
+            'data_abertura'                       => 'datetime',
+            'data_resultado'                      => 'date',
+            'data_suspensao_parcial'              => 'datetime',
+            'data_suspensao_integral'             => 'datetime',
+            'data_recurso_inicio'                 => 'datetime',
+            'data_recurso_fim'                    => 'datetime',
+            'data_liberacao_recurso'              => 'datetime',
+            'data_homologacao'                    => 'datetime',
+            'data_liberacao_classificacao'        => 'datetime',
         ];
     }
 }

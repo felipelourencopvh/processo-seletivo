@@ -13,11 +13,12 @@ new class () extends Component {
 
     public string     $uuid;
     public ?Inscricao $inscricao;
-    public array      $file              = [];
-    public ?string    $recurso           = null;
-    public ?string    $analiseRecurso    = null;
-    public ?string    $criterioInscricao = null;
-    public bool       $habilitado        = false;
+    public array      $file                  = [];
+    public ?string    $recurso               = null;
+    public ?string    $analiseRecurso        = null;
+    public ?string    $criterioInscricao     = null;
+    public ?string    $criterioClassificacao = null;
+    public bool       $habilitado            = false;
 
     public function mount()
     {
@@ -27,11 +28,12 @@ new class () extends Component {
             ->where('user_id', auth()->id())
             ->firstOrFail();
 
-        $this->file              = $this->inscricao->documentos->pluck('documento', 'id')->toArray();
-        $this->recurso           = $this->inscricao->recurso;
-        $this->analiseRecurso    = $this->inscricao->analise_recurso;
-        $this->criterioInscricao = $this->inscricao->criterio_inscricao;
-        $this->habilitado        = $this->inscricao->processo->status->isAberto();
+        $this->file                  = $this->inscricao->documentos->pluck('documento', 'id')->toArray();
+        $this->recurso               = $this->inscricao->recurso;
+        $this->analiseRecurso        = $this->inscricao->analise_recurso;
+        $this->criterioInscricao     = $this->inscricao->criterio_inscricao;
+        $this->criterioClassificacao = $this->inscricao->criterio_classificacao;
+        $this->habilitado            = $this->inscricao->processo->status->isAberto();
     }
 
     public function save()
@@ -65,7 +67,13 @@ new class () extends Component {
 
         @if ( ! empty($criterioInscricao) && $inscricao->processo->data_homologacao <= now())
             <x-card title="Critério de Inscrição" separator shadow>
-                {!! $this->criterioInscricao !!}
+                {!! $criterioInscricao !!}
+            </x-card>
+        @endif
+
+        @if ( ! empty($criterioClassificacao) && $inscricao->processo->data_liberacao_classificacao <= now())
+            <x-card title="Critério de Classificação" separator shadow>
+                {!! $criterioClassificacao !!}
             </x-card>
         @endif
 
