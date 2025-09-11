@@ -17,7 +17,7 @@ class Inscricao extends Model
 {
     use LogsActivity;
     use SoftDeletes;
-    /** @use HasFactory<\Database\Factories\InscricaoFactory> */
+
     use HasFactory;
     use HasUuids;
     protected $table    = 'inscricoes';

@@ -48,15 +48,15 @@ class InscricaoResource extends Resource
                         Tabs\Tab::make('Inscrição')
                             ->schema([
                                 Section::make([
-                                    Placeholder::make('user.name')
-                                        ->content(
-                                            fn (Inscricao $record) => new HtmlString(
-                                                '<a class="underline" href="' . route(
-                                                    'filament.app.resources.app.resources.usuarios.edit',
-                                                    ['record' => $record->user_id, 'tenant' => Filament::getTenant()],
-                                                ) . '">' . $record->user->name . '</a>',
-                                            ),
-                                        ),
+//                                    Placeholder::make('user.name')
+//                                        ->content(
+//                                            fn (Inscricao $record) => new HtmlString(
+//                                                '<a class="underline" href="' . route(
+//                                                    'filament.app.resources.app.resources.usuarios.edit',
+//                                                    ['record' => $record->user_id, 'tenant' => Filament::getTenant()],
+//                                                ) . '">' . $record->user->name . '</a>',
+//                                            ),
+//                                        ),
                                     Select::make('situacao')->label('Situação')
                                         ->options([
                                             'Inscrito'       => 'Inscrito',

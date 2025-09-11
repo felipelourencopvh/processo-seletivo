@@ -38,7 +38,7 @@
                         <x-slot:title>
                             <div class="flex items-center gap-2">
                                 <img
-                                    src="{{ asset('media/brasao-horizontal.svg') }}"
+                                    src="{{ asset('media/sistemlogo.png') }}"
                                     alt="logo"
                                     class="h-[56px] bg-white"
                                 />

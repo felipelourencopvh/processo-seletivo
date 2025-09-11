@@ -73,7 +73,7 @@ new class () extends Component {
                     >
                         <div class="card image-full h-60 w-full bg-base-100">
                             <figure class="bg-white/30 p-5 backdrop-blur-sm">
-                                <img src="{{ asset('media/brasao-pmpv.svg') }}" alt="brasao" />
+                                <img src="{{ asset('media/sistemlogo.png') }}" alt="brasao" />
                             </figure>
                             <div class="card-body">
                                 <div class="badge-{{ $processo->status->getColor() }} badge">
