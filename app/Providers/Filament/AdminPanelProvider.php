@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace App\Providers\Filament;
 
+use App\Filament\Auth\SigaLogin;
+use App\Http\Middleware\ConferirSessaoSiga;
 use App\Http\Middleware\VerifyIsAdmin;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
+use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Navigation\MenuItem;
@@ -32,7 +35,7 @@ class AdminPanelProvider extends PanelProvider
             ->passwordReset()
             ->emailVerification()
             ->profile()
-            ->login()
+            ->login(SigaLogin::class)
             ->colors([
                 'danger' => Color::Red,
                 'gray' => Color::Slate,
@@ -71,6 +74,10 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
                 VerifyIsAdmin::class,
+            ])
+            ->authMiddleware([
+                Authenticate::class,
+                ConferirSessaoSiga::class,
             ])
             ->plugins([
                 FilamentShieldPlugin::make()

@@ -6,6 +6,8 @@ namespace App\Providers\Filament;
 
 use App\Filament\App\Pages\Auth\Register;
 use App\Filament\App\Pages\EditProcessoSeletivo;
+use App\Filament\Auth\SigaLogin;
+use App\Http\Middleware\ConferirSessaoSiga;
 use App\Models\Processo;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -32,7 +34,7 @@ class AppPanelProvider extends PanelProvider
             ->default()
             ->id('app')
             ->path('app')
-            ->login()
+            ->login(SigaLogin::class)
             ->registration(Register::class)
             ->profile()
             ->userMenuItems([
@@ -67,6 +69,7 @@ class AppPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+                ConferirSessaoSiga::class,
             ])
             ->databaseNotifications()
             ->tenant(Processo::class, slugAttribute: 'slug', ownershipRelationship: 'processo')

@@ -2,7 +2,13 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Auth\SigaLoginController;
+use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
+
+// Login único do ecossistema (SIGA) para o backoffice (painéis Filament). O candidato não usa.
+Route::get('siga/entrar', [SigaLoginController::class, 'entrar'])->name('siga.entrar');
+Route::get('siga/retorno', [SigaLoginController::class, 'retorno'])->name('siga.retorno');
 
 Volt::route('/', 'index')->name('home');
 

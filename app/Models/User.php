@@ -34,6 +34,8 @@ class User extends Authenticatable implements FilamentUser, HasTenants, HasAvata
     protected $fillable = [
         'name',
         'email',
+        'cpf',
+        'ativo',
         'password',
     ];
 
@@ -103,6 +105,7 @@ class User extends Authenticatable implements FilamentUser, HasTenants, HasAvata
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'ativo' => 'boolean',
         ];
     }
 }

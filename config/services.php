@@ -35,4 +35,15 @@ return [
         ],
     ],
 
+    'siga' => [
+        // Endereço público do SIGA (onde o navegador faz o login). Vazio: SSO desligado (dev local).
+        'url' => env('SIGA_URL'),
+        // Código deste sistema no cadastro siga.sistema (vira o client_id OIDC).
+        'cliente' => env('SIGA_CLIENTE', 'recrutamento'),
+        // Provedor OIDC pela rede interna (troca do código pelo token e consulta de quem entrou).
+        'oidc_interno' => env('SIGA_OIDC_INTERNO'),
+        // API do SIGA pela rede interna (ex.: fuso do município, na Fase 2).
+        'api_interno' => env('SIGA_API_INTERNO'),
+    ],
+
 ];
