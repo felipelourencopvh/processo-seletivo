@@ -44,6 +44,8 @@ return [
         'oidc_interno' => env('SIGA_OIDC_INTERNO'),
         // API do SIGA pela rede interna (ex.: fuso do município, na Fase 2).
         'api_interno' => env('SIGA_API_INTERNO'),
+        // Token com que o SIGA chama a API de provisionamento (/siga/api). Vazio: a API não existe.
+        'provisionamento_token' => env('SIGA_PROVISIONAMENTO_TOKEN'),
     ],
 
 ];

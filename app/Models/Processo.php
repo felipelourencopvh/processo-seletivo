@@ -134,6 +134,11 @@ class Processo extends Model implements HasName
         ];
     }
 
+    public function inscricoes(): HasMany
+    {
+        return $this->hasMany(Inscricao::class);
+    }
+
     public function secretaria(): BelongsTo
     {
         return $this->belongsTo(Secretaria::class);
