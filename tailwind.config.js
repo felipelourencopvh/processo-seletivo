@@ -54,12 +54,12 @@ export default {
         themes: [
             {
                 light: {
-                    primary: "#1351b4",
+                    primary: "#4338ca",
                     "primary-content": "#FFF",
-                    secondary: "#3B3E99",
+                    secondary: "#071C2C",
                     "secondary-content": "#FFF",
-                    accent: "#00ca67",
-                    "accent-content": "#000f04",
+                    accent: "#F36F21",
+                    "accent-content": "#FFF",
                     neutral: "#1e1406",
                     "neutral-content": "#cdcac6",
                     "base-content": "#333",

@@ -17,6 +17,7 @@ use Filament\Navigation\NavigationItem;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
+use Filament\Support\Colors\Color;
 use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -80,6 +81,7 @@ class AppPanelProvider extends PanelProvider
                     ->url(static fn () => url(EditProcessoSeletivo::getUrl())),
             ])
             ->viteTheme('resources/css/filament/admin/theme.css')
-            ->brandName('Portal de Processos Seletivos');
+            ->colors(['primary' => Color::Indigo])
+            ->brandName('STX Gov · Recrutamento');
     }
 }

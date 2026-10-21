@@ -31,6 +31,7 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->id('admin')
             ->path('admin')
+            ->brandName('STX Gov · Recrutamento')
             ->passwordReset()
             ->emailVerification()
             ->profile()

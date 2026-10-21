@@ -20,21 +20,8 @@ class AppBrand extends Component
     public function render(): View|Closure|string
     {
         return <<<'blade'
-                <a href="/" wire:navigate>
-                    <!-- Hidden when collapsed -->
-                    <div class="flex flex-row">
-                        <div class="flex flex-col items-center gap-2">
-                            <span class="font-bold text-3xl me-3 bg-gradient-to-r from-purple-500 to-pink-300 bg-clip-text text-white ">
-                                Processos Seletivos
-                            </span>
-                            <span class="font-bold text-xl me-3 bg-gradient-to-r from-purple-500 to-pink-300 bg-clip-text text-white ">
-                                Prefeitura Municipal de Porto Velho
-                            </span>
-                        </div>
-                        <div class="flex flex-col items-center gap-2">
-                        <img src="{{ asset('media/brasao.svg') }}" alt="logo" class="w-36 md:w-[250px]" />
-                        </div>
-                    </div>
+                <a href="/" wire:navigate class="inline-flex items-center">
+                    <x-marca />
                 </a>
             blade;
     }

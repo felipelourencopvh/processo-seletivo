@@ -71,18 +71,18 @@ new class () extends Component {
                         class="relative top-0 cursor-pointer overflow-hidden rounded bg-white shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] transition-all duration-300 hover:-top-2"
                         href="{{ route('processos-seletivos.show', $processo) }}"
                     >
-                        <div class="card image-full h-60 w-full bg-base-100">
-                            <figure class="bg-white/30 p-5 backdrop-blur-sm">
-                                <img src="{{ asset('media/sistemlogo.png') }}" alt="brasao" />
-                            </figure>
-                            <div class="card-body">
+                        <div class="relative flex h-40 w-full flex-col justify-between bg-gradient-to-br from-[#4338ca] to-[#071C2C] p-5 text-white">
+                            <div class="flex items-center justify-between">
+                                <span class="inline-flex items-center rounded-md bg-white/15 px-2 py-0.5 text-sm font-extrabold tracking-tight">
+                                    STX<span class="text-[#F36F21]">Gov</span>
+                                </span>
                                 <div class="badge-{{ $processo->status->getColor() }} badge">
-                                    {{ $processo->status }}!
+                                    {{ $processo->status }}
                                 </div>
-                                <h2 class="text-grey-400 text-cent card-title bg-white/30 p-5 backdrop-blur-sm">
-                                    {{ $processo->titulo }}!
-                                </h2>
                             </div>
+                            <h2 class="line-clamp-2 text-lg font-bold">
+                                {{ $processo->titulo }}
+                            </h2>
                         </div>
                         <div class="p-6">
                             <span class="mb-2 block text-sm text-gray-400">

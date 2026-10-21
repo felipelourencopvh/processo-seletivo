@@ -7,11 +7,11 @@
         <title>{{ isset($title) ? $title.' - '.config('app.name') : config('app.name') }}</title>
 
         <link rel="shortcut icon" type="image/x-icon" href="{{ asset('/favicon.ico') }}" />
-        <link rel="mask-icon" href="{{ asset('/favicon.ico') }}" color="#ff2d20" />
+        <link rel="mask-icon" href="{{ asset('/favicon.ico') }}" color="#4338ca" />
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="min-h-screen bg-[#0C326F] font-sans antialiased">
+    <body class="min-h-screen bg-[#071C2C] font-sans antialiased">
         <main class="mx-auto w-full">
             <div class="mx-auto w-full p-5 lg:px-10 lg:py-5">
                 {{ $slot }}

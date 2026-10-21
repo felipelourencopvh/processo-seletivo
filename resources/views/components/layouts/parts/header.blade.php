@@ -2,9 +2,9 @@
     <div class="container-lg">
         <div class="header-top">
             <div class="header-logo">
-                <img src="{{ asset('media/sistemlogo.png') }}" alt="logo" />
+                <x-marca sub="false" />
                 <span class="br-divider vertical"></span>
-                <div class="header-sign">Processo seletivo </div>
+                <div class="header-sign">Recrutamento</div>
             </div>
             <div class="header-actions">
                 <div class="header-links dropdown">
@@ -23,11 +23,9 @@
 
                         @props([
                             'external' => [
-                                'Portal da Prefeitura' => '#',
                                 'Transparência' => '#',
                                 'Ouvidoria' => '#',
                                 'Acesso à informação' => 'https://falabr.cgu.gov.br/web/login?tipo=8&redirect=/manifestacao/criar?tipo=8',
-                                'Denúncia Corrupção' => 'https://falabr.cgu.gov.br/login/RO/PortoVelho/Identificacao?idFormulario=4&tipo=1&ReturnUrl=%2fpublico%2fRO%2fPortoVelho%2fmanifestacao%2fRegistrarDadosManifestacao%3fidFormulario%3d4%26tipo%3d1%26origem%3didp%26modo%3d',
                             ],
                             'selected' => '',
                         ])
