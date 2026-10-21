@@ -20,17 +20,11 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class SigaLoginController extends Controller
 {
-    /** Painéis que entram pelo SIGA; o default é o da comissão. */
-    private const PAINEIS = ['app', 'admin'];
-
     public function __construct(private readonly SigaOidc $siga) {}
 
     public function entrar(Request $request): RedirectResponse
     {
         abort_unless($this->siga->configurado(), 404);
-
-        $painel = in_array($request->query('painel'), self::PAINEIS, true) ? $request->query('painel') : 'app';
-        $request->session()->put('siga.painel', $painel);
 
         return redirect()->away($this->siga->urlEntrada($request));
     }
@@ -38,8 +32,6 @@ class SigaLoginController extends Controller
     public function retorno(Request $request): RedirectResponse|Response
     {
         abort_unless($this->siga->configurado(), 404);
-
-        $painel = $request->session()->pull('siga.painel', 'app');
 
         try {
             $pessoa = $this->siga->concluir($request);
@@ -50,13 +42,16 @@ class SigaLoginController extends Controller
         $usuario = User::query()->where('cpf', $pessoa['cpf'])->first();
         $quem = $pessoa['nome'] ?: 'Você';
 
+        // O backoffice global (/admin) não é escopado por Processo: é onde todo administrador entra.
+        $painel = Filament::getPanel('admin');
+
         if (! $usuario) {
             return $this->semAcesso('Sem acesso ao Recrutamento', "{$quem} entrou no SIGA, mas não tem acesso a este sistema. Peça ao administrador do SIGA.", 403);
         }
         if (! ($usuario->getAttribute('ativo') ?? true)) {
             return $this->semAcesso('Sem acesso ao Recrutamento', "{$quem} entrou no SIGA, mas o seu usuário está inativo neste sistema. Peça ao administrador do SIGA.", 403);
         }
-        if (! $usuario->canAccessPanel(Filament::getPanel($painel))) {
+        if (! $usuario->canAccessPanel($painel)) {
             return $this->semAcesso('Sem acesso ao Recrutamento', "{$quem} entrou no SIGA, mas não tem permissão no backoffice. Peça ao administrador do SIGA.", 403);
         }
 
@@ -65,7 +60,8 @@ class SigaLoginController extends Controller
         $request->session()->put('siga.access_token', $pessoa['access_token']);
         $request->session()->put('siga.conferido_em', now()->timestamp);
 
-        return redirect()->intended(Filament::getPanel($painel)->getUrl());
+        // Cai sempre no backoffice global (/admin), que funciona mesmo sem nenhum processo criado.
+        return redirect()->intended($painel->getUrl());
     }
 
     private function semAcesso(string $titulo, string $mensagem, int $status): Response

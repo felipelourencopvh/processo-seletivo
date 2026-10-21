@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Filament\Auth;
 
 use App\Services\Siga\SigaOidc;
-use Filament\Facades\Filament;
 use Filament\Pages\Auth\Login;
 
 /**
@@ -17,7 +16,7 @@ class SigaLogin extends Login
     public function mount(): void
     {
         if (app(SigaOidc::class)->configurado()) {
-            $this->redirect(route('siga.entrar', ['painel' => Filament::getCurrentPanel()->getId()]));
+            $this->redirect(route('siga.entrar'));
 
             return;
         }

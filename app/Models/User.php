@@ -56,7 +56,8 @@ class User extends Authenticatable implements FilamentUser, HasTenants, HasAvata
 
     public function canAccessTenant(Model $tenant): bool
     {
-        return $this->processos()->whereKey($tenant)->exists();
+        // Super admin administra qualquer processo seletivo; os demais, só os que lhes foram vinculados.
+        return $this->hasRole('super_admin') || $this->processos()->whereKey($tenant)->exists();
     }
 
     public function processos(): BelongsToMany
@@ -66,7 +67,7 @@ class User extends Authenticatable implements FilamentUser, HasTenants, HasAvata
 
     public function getTenants(Panel $panel): array|Collection
     {
-        return $this->processos;
+        return $this->hasRole('super_admin') ? Processo::query()->get() : $this->processos;
     }
 
     public function info(): HasOne
