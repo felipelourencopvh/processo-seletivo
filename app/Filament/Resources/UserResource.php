@@ -17,7 +17,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Hash;
-use Leandrocfe\FilamentPtbrFormFields\Cep;
+use App\Filament\Forms\Cep;
 use Leandrocfe\FilamentPtbrFormFields\Document;
 use Leandrocfe\FilamentPtbrFormFields\PhoneNumber;
 
@@ -90,25 +90,14 @@ class UserResource extends Resource
                     Fieldset::make('Endereço')
                         ->schema([
                             Cep::make('endereco_cep')
-                                ->viaCep(
-                                    mode: 'suffix',
-                                    // Determines whether the action should be appended to (suffix) or prepended to (prefix) the cep field, or not included at all (none).
-                                    errorMessage: 'CEP inválido.', // Error message to display if the CEP is invalid.
-
-                                    /**
-                                     * Other form fields that can be filled by ViaCep.
-                                     * The key is the name of the Filament input, and the value is the ViaCep attribute that corresponds to it.
-                                     * More information: https://viacep.com.br/
-                                     */
-                                    setFields: [
-                                        'endereco_logradouro' => 'logradouro',
-                                        'endereco_numero' => 'numero',
-                                        'endereco_complemento' => 'complemento',
-                                        'endereco_bairro' => 'bairro',
-                                        'endereco_cidade' => 'localidade',
-                                        'endereco_uf' => 'uf',
-                                    ],
-                                ),
+                                ->baseCep([
+                                    'endereco_logradouro' => 'logradouro',
+                                    'endereco_numero' => 'numero',
+                                    'endereco_complemento' => 'complemento',
+                                    'endereco_bairro' => 'bairro',
+                                    'endereco_cidade' => 'localidade',
+                                    'endereco_uf' => 'uf',
+                                ]),
 
                             TextInput::make('endereco_logradouro')->label('Logradouro')->columnSpanFull(),
                             TextInput::make('endereco_complemento')->label('Complemento')->columnSpanFull(),

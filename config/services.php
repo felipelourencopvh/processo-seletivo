@@ -35,6 +35,14 @@ return [
         ],
     ],
 
+    // API de integração do SGPM: endereço pelo CEP na base interna do STX Gov (a chave precisa do escopo cep:consultar).
+    // Sem chave: o CEP não é consultado e o endereço é digitado.
+    'sgpm' => [
+        'base_url' => rtrim((string) env('SGPM_API_URL', 'http://localhost:3110/api/v1'), '/'),
+        'token' => env('SGPM_API_TOKEN'),
+        'timeout' => (int) env('SGPM_API_TIMEOUT', 5),
+    ],
+
     'siga' => [
         // Endereço público do SIGA (onde o navegador faz o login). Vazio: SSO desligado (dev local).
         'url' => env('SIGA_URL'),

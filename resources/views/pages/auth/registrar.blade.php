@@ -48,13 +48,12 @@ class () extends Component {
 
     public function buscaCep(): void
     {
-        if (strlen($this->form->endereco_cep) === 9) {
-            $cep = (new App\Actions\GetAddressFromCEPAction($this->form->endereco_cep))->execute();
-            $this->form->endereco_logradouro = $cep['logradouro'] ?? null;
-            $this->form->endereco_complemento = $cep['complemento'] ?? null;
-            $this->form->endereco_bairro = $cep['bairro'] ?? null;
-            $this->form->endereco_cidade = $cep['localidade'] ?? null;
-            $this->form->endereco_uf = $cep['uf'] ?? null;
+        // Base interna de CEP do STX Gov: só preenche o que achou; fora da base, o candidato digita.
+        $cep = (new App\Actions\GetAddressFromCEPAction($this->form->endereco_cep))->execute();
+        foreach (['logradouro' => 'endereco_logradouro', 'complemento' => 'endereco_complemento', 'bairro' => 'endereco_bairro', 'localidade' => 'endereco_cidade', 'uf' => 'endereco_uf'] as $chave => $campo) {
+            if (filled($cep[$chave] ?? null)) {
+                $this->form->{$campo} = $cep[$chave];
+            }
         }
     }
 

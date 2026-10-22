@@ -71,3 +71,6 @@ SIGA_OIDC_INTERNO=
 SIGA_API_INTERNO=
 # Chave com que o SIGA chama a API de provisionamento (/siga/api). Vazio: o SIGA não dá perfis aqui.
 SIGA_PROVISIONAMENTO_TOKEN=
+# Endereço pelo CEP na base interna do STX Gov (API de integração do SGPM, escopo cep:consultar). Vazio = sem consulta.
+SGPM_API_URL=
+SGPM_API_TOKEN=

@@ -13,7 +13,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Http\Responses\Auth\Contracts\RegistrationResponse;
 use Filament\Pages\Auth\Register as BaseRegister;
-use Leandrocfe\FilamentPtbrFormFields\Cep;
+use App\Filament\Forms\Cep;
 use Leandrocfe\FilamentPtbrFormFields\Document;
 use Leandrocfe\FilamentPtbrFormFields\PhoneNumber;
 
@@ -109,16 +109,14 @@ class Register extends BaseRegister
                         Fieldset::make('Endereço')
                             ->schema([
                                 Cep::make('info.endereco_cep')->label('CEP')->required()
-                                    ->viaCep(
-                                        setFields: [
-                                            'info.endereco_logradouro' => 'logradouro',
-                                            'info.endereco_numero' => 'numero',
-                                            'info.endereco_complemento' => 'complemento',
-                                            'info.endereco_bairro' => 'bairro',
-                                            'info.endereco_cidade' => 'localidade',
-                                            'info.endereco_uf' => 'uf',
-                                        ],
-                                    ),
+                                    ->baseCep([
+                                        'info.endereco_logradouro' => 'logradouro',
+                                        'info.endereco_numero' => 'numero',
+                                        'info.endereco_complemento' => 'complemento',
+                                        'info.endereco_bairro' => 'bairro',
+                                        'info.endereco_cidade' => 'localidade',
+                                        'info.endereco_uf' => 'uf',
+                                    ]),
                                 TextInput::make('info.endereco_logradouro')->label('Logradouro')->required(),
                                 TextInput::make('info.endereco_complemento')->label('Complemento'),
                                 TextInput::make('info.endereco_numero')->label('Número'),
