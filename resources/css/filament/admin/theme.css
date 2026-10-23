@@ -149,12 +149,8 @@ h2,
     display: none !important;
 }
 
-.fi-global-search {
-    @apply w-full;
-}
-
 .fi-global-search-field .fi-input-wrp {
-    @apply w-full rounded-xl;
+    @apply rounded-xl;
 }
 
 /* ---------- Conteúdo ---------- */

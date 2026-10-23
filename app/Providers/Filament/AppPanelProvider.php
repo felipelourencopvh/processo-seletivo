@@ -6,6 +6,7 @@ namespace App\Providers\Filament;
 
 use App\Filament\App\Pages\Auth\Register;
 use App\Filament\App\Pages\EditProcessoSeletivo;
+use App\Filament\Auth\MeuPerfil;
 use App\Filament\Auth\SigaLogin;
 use App\Http\Middleware\ConferirSessaoSiga;
 use App\Models\Processo;
@@ -37,7 +38,7 @@ class AppPanelProvider extends PanelProvider
             ->path('app')
             ->login(SigaLogin::class)
             ->registration(Register::class)
-            ->profile()
+            ->profile(MeuPerfil::class, isSimple: false)
             ->userMenuItems([
                 MenuItem::make()
                     ->label('Administração')

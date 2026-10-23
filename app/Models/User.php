@@ -37,6 +37,7 @@ class User extends Authenticatable implements FilamentUser, HasTenants, HasAvata
         'cpf',
         'ativo',
         'password',
+        'avatar_path',
     ];
 
     /**
@@ -77,11 +78,16 @@ class User extends Authenticatable implements FilamentUser, HasTenants, HasAvata
 
     public function getFilamentAvatarUrl(): ?string
     {
-        return null;
+        // asset() monta o endereço pelo host da requisição (a config fica em cache no build da imagem)
+        return $this->avatar_path ? asset('storage/'.$this->avatar_path) : null;
     }
 
     public function getAvatarUrlAttribute(): string
     {
+        if ($foto = $this->getFilamentAvatarUrl()) {
+            return $foto;
+        }
+
         $name = str($this->name)
             ->trim()
             ->explode(' ')

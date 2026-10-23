@@ -30,6 +30,9 @@ RUN composer dump-autoload -o
 
 COPY --from=static-assets --chown=www-data:www-data /app/public/build ./public/build
 
+# public/storage -> storage/app/public (o volume recrutamento-storage): fotos de perfil e anexos dos processos
+RUN ln -sfn ../storage/app/public public/storage
+
 RUN php artisan optimize
 RUN php artisan filament:optimize
 

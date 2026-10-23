@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Providers\Filament;
 
+use App\Filament\Auth\MeuPerfil;
 use App\Filament\Auth\SigaLogin;
 use App\Http\Middleware\ConferirSessaoSiga;
 use App\Http\Middleware\VerifyIsAdmin;
@@ -38,7 +39,7 @@ class AdminPanelProvider extends PanelProvider
             ->favicon(asset('marca/recrutamento-favicon.svg'))
             ->passwordReset()
             ->emailVerification()
-            ->profile()
+            ->profile(MeuPerfil::class, isSimple: false)
             ->login(SigaLogin::class)
             ->colors([
                 'danger'  => Color::Red,
