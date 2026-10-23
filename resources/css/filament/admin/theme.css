@@ -3,122 +3,150 @@
 
 @config 'tailwind.config.js';
 
-.fi-body {
-    @apply bg-gray-50 dark:bg-gray-900;
+/* Identidade STX Gov · Recrutamento nos painéis /admin e /app (mesma do site do candidato, layout "Órbita"):
+   menu lateral navy #071C2C, rosa do Recrutamento #db2777, laranja da marca #F36F21, Sora nos títulos e Inter Tight no texto. */
+
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&display=swap');
+
+:root {
+    --stx-navy: #071c2c;
+    --stx-navy-2: #0e2a3f;
+    --stx-rosa: #db2777;
+    --stx-fundo: #f4f6f9;
 }
 
+.fi-body,
 .fi-layout {
-    @apply bg-gray-50 dark:bg-gray-900;
+    background: var(--stx-fundo);
+}
+
+h1,
+h2,
+.fi-header-heading,
+.fi-section-header-heading,
+.fi-wi-stats-overview-stat-value,
+.fi-simple-header-heading,
+.stx-marca-nome {
+    font-family: 'Sora', 'Inter Tight', sans-serif;
+    letter-spacing: -0.01em;
+}
+
+/* Marca: navy sobre fundo claro (login, barra superior no celular); branca no menu lateral */
+.stx-marca-nome {
+    color: var(--stx-navy);
+}
+
+.stx-marca-sub {
+    color: var(--stx-rosa);
+}
+
+.fi-sidebar .stx-marca-nome {
+    color: #fff;
+}
+
+.fi-sidebar .stx-marca-sub {
+    color: #f9a8d4;
+}
+
+/* ---------- Menu lateral navy ---------- */
+.fi-sidebar {
+    background: var(--stx-navy) !important;
 }
 
 .fi-sidebar-header {
-    @apply px-3;
+    @apply px-5 shadow-none ring-0;
+    background: var(--stx-navy) !important;
+    border-bottom: 1px solid rgb(255 255 255 / 0.08);
 }
 
-.fi-sidebar-header .fi-icon-btn svg {
-    @apply w-4 h-4;
+.fi-sidebar-header .fi-icon-btn {
+    @apply text-white/60 hover:bg-white/10 hover:text-white;
 }
 
 .fi-sidebar-nav {
-    @apply bg-gray-50 dark:bg-gray-900 px-3 gap-6 pb-8 pt-4 scrollbar scrollbar-thumb-gray-200 hover:scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-700 scrollbar-track-transparent;
-}
-
-.fi-ta-content {
-    @apply scrollbar scrollbar-thumb-gray-200 dark:scrollbar-thumb-gray-700 scrollbar-track-transparent;
-}
-
-.fi-user-menu {
-    display: none !important;
+    @apply gap-6 px-3 pb-8 pt-5 scrollbar scrollbar-track-transparent scrollbar-thumb-white/10 hover:scrollbar-thumb-white/20;
+    background: var(--stx-navy);
 }
 
 .fi-sidebar-nav-groups {
-    @apply mx-0;
+    @apply mx-0 gap-y-5;
 }
 
 .fi-sidebar-group-label {
-    @apply text-gray-400 font-medium text-xs;
+    @apply text-[11px] font-bold uppercase tracking-[0.12em] text-white/40;
 }
 
 .fi-sidebar-group-button {
     @apply flex-row-reverse gap-x-1;
 }
 
+.fi-sidebar-group-button .fi-icon-btn {
+    @apply text-white/40 hover:bg-transparent;
+}
+
 .fi-sidebar-group-button .fi-icon-btn svg {
-    @apply w-4 h-4
+    @apply h-4 w-4;
 }
 
-.fi-sidebar-header {
-    @apply bg-gray-50 dark:bg-gray-900 ring-0 shadow-none;
+.fi-sidebar-item-button {
+    @apply rounded-[10px] px-3 py-2 hover:bg-white/[0.07] focus-visible:bg-white/[0.07];
 }
 
-.fi-wi {
-    @apply p-6;
+.fi-sidebar-item-label {
+    @apply text-[13.5px] font-medium text-[#c9d6e2];
 }
 
-.fi-header {
-    @apply bg-gray-100 dark:bg-gray-800;
+.fi-sidebar-item-icon {
+    @apply h-5 w-5 text-white/45;
 }
 
-.fi-header .fi-ac {
-    @apply py-6;
+.fi-sidebar-item-active .fi-sidebar-item-button {
+    @apply bg-white/[0.09];
+    box-shadow: inset 3px 0 0 var(--stx-rosa);
 }
 
-.fi-header .shrink-0 {
-    @apply sm:mt-0;
+.fi-sidebar-item-active .fi-sidebar-item-label {
+    @apply font-semibold text-white;
 }
 
-.fi-header .fi-breadcrumbs {
-    @apply hidden;
+.fi-sidebar-item-active .fi-sidebar-item-icon {
+    color: #f472b6 !important;
 }
 
-.fi-header .fi-header-heading {
-    @apply hidden;
+.fi-sidebar-item-grouped-border > div {
+    @apply bg-white/15;
 }
 
-.fi-header .fi-ac {
-    @apply px-6;
+.fi-sidebar-item .fi-badge {
+    @apply bg-white/10 text-white ring-0;
 }
 
-.fi-main-ctn {
-    @apply bg-white dark:bg-gray-800 min-h-full ml-2 mr-2 rtl:sm:mr-0 rtl:ml-2 sm:ml-0 mt-2 mb-2 rtl:md:ml-4 md:mr-4 md:mt-4 md:mb-4 overflow-hidden border border-gray-100 dark:border-gray-700 rounded-2xl shadow-sm;
+/* Seletor do processo (tenant) no topo do menu */
+.fi-tenant-menu-trigger {
+    @apply rounded-xl border border-white/10 bg-white/[0.06] px-3 py-2.5 hover:bg-white/10;
 }
 
-.fi-sidebar-item svg {
-    @apply text-sm w-5 h-5;
+.fi-tenant-menu-trigger span,
+.fi-tenant-menu-trigger .fi-tenant-menu-trigger-tenant-name {
+    @apply text-white;
 }
 
-.fi-sidebar-item a {
-    @apply px-3 py-1.5 hover:bg-white;
+.fi-tenant-menu-trigger .fi-tenant-menu-trigger-current-tenant-label {
+    @apply text-white/50;
 }
 
-.fi-sidebar-item span {
-    @apply text-gray-800 dark:text-gray-200 font-normal text-xs;
+.fi-tenant-menu-trigger svg {
+    @apply text-white/50;
 }
 
-.fi-sidebar-item-active svg {
-    @apply text-primary-500 text-sm w-5 h-5;
+/* ---------- Barra superior: título da página à esquerda, usuário e Sair à direita ---------- */
+.fi-topbar > nav {
+    @apply bg-white shadow-none ring-0;
+    border-bottom: 1px solid #e3e9ef;
 }
 
-.fi-sidebar-item-active a {
-    @apply px-3 py-1.5 bg-white shadow-sm hover:bg-white;
-}
-
-
-.fi-sidebar-item-active span {
-    @apply text-gray-800 dark:text-gray-200  font-medium text-xs;
-}
-
-.fi-main {
-    @apply max-w-full;
-    padding: 0 !important;
-}
-
-.fi-main section {
-    @apply py-0 px-0 gap-y-0;
-}
-
-.fi-page > section > div {
-    @apply p-6;
+.fi-user-menu {
+    display: none !important;
 }
 
 .fi-global-search {
@@ -126,6 +154,70 @@
 }
 
 .fi-global-search-field .fi-input-wrp {
-    @apply w-full;
+    @apply w-full rounded-xl;
 }
 
+/* ---------- Conteúdo ---------- */
+.fi-main {
+    @apply max-w-full;
+}
+
+.fi-header .fi-breadcrumbs,
+.fi-header .fi-header-heading {
+    @apply hidden;
+}
+
+.fi-header .shrink-0 {
+    @apply sm:mt-0;
+}
+
+.fi-section,
+.fi-ta-ctn,
+.fi-wi-stats-overview-stat,
+.fi-fo-tabs,
+.fi-wi-chart .fi-section {
+    @apply rounded-2xl shadow-none;
+    border: 1px solid #e3e9ef;
+    --tw-ring-shadow: 0 0 #0000;
+}
+
+.fi-wi-stats-overview-stat {
+    @apply bg-white;
+}
+
+.fi-wi-stats-overview-stat-value {
+    @apply text-[28px] font-bold text-[#0b1f2e];
+}
+
+.fi-wi-stats-overview-stat-label {
+    @apply text-[13px] font-medium text-[#5a6b7b];
+}
+
+.fi-section-header-heading {
+    @apply text-base font-bold text-[#0b1f2e];
+}
+
+.fi-ta-header-cell-label {
+    @apply text-xs font-semibold uppercase tracking-wider text-[#7b8b99];
+}
+
+.fi-btn {
+    @apply rounded-[10px];
+}
+
+.fi-ta-content {
+    @apply scrollbar scrollbar-track-transparent scrollbar-thumb-gray-200;
+}
+
+/* ---------- Login (só aparece sem SIGA; em produção a entrada é pelo SIGA) ---------- */
+.fi-simple-layout {
+    background: var(--stx-navy);
+    background-image:
+        radial-gradient(circle at 85% 0%, rgb(219 39 119 / 0.3), transparent 45%),
+        radial-gradient(circle at 0% 100%, rgb(243 111 33 / 0.18), transparent 40%);
+}
+
+.fi-simple-main {
+    @apply rounded-2xl;
+    box-shadow: 0 30px 60px -30px #000;
+}

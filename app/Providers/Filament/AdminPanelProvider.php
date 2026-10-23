@@ -15,6 +15,7 @@ use Filament\Navigation\MenuItem;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
+use Filament\FontProviders\GoogleFontProvider;
 use Filament\Support\Colors\Color;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -32,6 +33,9 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->brandName('STX Gov · Recrutamento')
+            ->brandLogo(fn () => view('filament.marca'))
+            ->brandLogoHeight('2.25rem')
+            ->favicon(asset('marca/recrutamento-favicon.svg'))
             ->passwordReset()
             ->emailVerification()
             ->profile()
@@ -45,11 +49,11 @@ class AdminPanelProvider extends PanelProvider
                 'warning' => Color::Orange,
             ])
             ->darkMode(false)
-            ->font('Inter')
+            ->font('Inter Tight', provider: GoogleFontProvider::class)
             ->userMenuItems([
                 MenuItem::make()
-                    ->label('Dashboard')
-                    ->icon('heroicon-o-cog-6-tooth')
+                    ->label('Painel da comissão')
+                    ->icon('heroicon-o-clipboard-document-check')
                     ->url('/app'),
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')

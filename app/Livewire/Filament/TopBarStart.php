@@ -17,30 +17,18 @@ class TopBarStart extends Component
     {
         $currentPage = call_user_func(request()->getRouteResolver())->controller ?? null;
 
-        if ($currentPage) {
-            if ( ! $currentPage->getNavigationIcon()) {
-                if (in_array('getResource', get_class_methods($currentPage))) {
-                    $resource = app($currentPage::getResource());
-
-                    if ($resource) {
-                        $this->icon = $resource->getNavigationIcon();
-
-                        if ($currentPage instanceof ListRecords || $currentPage instanceof ManageRecords) {
-                            $this->title = $resource->getNavigationLabel();
-                        } else {
-                            $this->title = $currentPage::getNavigationLabel();
-                        }
-                    }
-                } else {
-                    $this->title = $currentPage->getNavigationLabel();
-                    $this->icon = $currentPage->getNavigationIcon();
-                }
-            } else {
-                $this->title = $currentPage->getNavigationLabel();
-                $this->icon = $currentPage->getNavigationIcon();
-            }
+        if ( ! $currentPage) {
+            return;
         }
 
+        $resource = method_exists($currentPage, 'getResource') ? app($currentPage::getResource()) : null;
+
+        $this->icon = $currentPage->getNavigationIcon() ?: $resource?->getNavigationIcon();
+
+        // Listagem: o nome do menu ("Cargos"); criar/editar/ver e demais páginas: o título traduzido ("Editar Cargo").
+        $this->title = $resource && ($currentPage instanceof ListRecords || $currentPage instanceof ManageRecords)
+            ? $resource->getNavigationLabel()
+            : (method_exists($currentPage, 'getTitle') ? (string) $currentPage->getTitle() : $currentPage->getNavigationLabel());
     }
 
     public function render()

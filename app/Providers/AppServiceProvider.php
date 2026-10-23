@@ -59,9 +59,10 @@ class AppServiceProvider extends ServiceProvider
 
         Builder::macro('pluckWithIdName', fn ($idColumn = null, $nameColumn = null): Collection => $this->pluck($nameColumn, $idColumn)->map(fn ($value, $id): array => ['id' => $id, 'name' => $value])->values());
 
+        // Usuário e Sair ficam na barra superior (padrão do ecossistema STX Gov), não no rodapé do menu.
         FilamentView::registerRenderHook(
-            PanelsRenderHook::SIDEBAR_FOOTER,
-            fn () => view('filament.sidebar-nav-end')
+            PanelsRenderHook::USER_MENU_BEFORE,
+            fn () => view('filament.topbar-end')
         );
 
         FilamentView::registerRenderHook(

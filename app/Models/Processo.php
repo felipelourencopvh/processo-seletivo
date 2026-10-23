@@ -78,9 +78,9 @@ class Processo extends Model implements HasName
 
                                 DatePicker::make('data_resultado')->label('Data do Resultado'),
 
-                                DateTimePicker::make('data_suspensao_parcial')->label('Data da Suspensao Parcial')->seconds(false),
+                                DateTimePicker::make('data_suspensao_parcial')->label('Data da Suspensão Parcial')->seconds(false),
 
-                                DateTimePicker::make('data_suspensao_integral')->label('Data da Suspensao Integral')->seconds(false),
+                                DateTimePicker::make('data_suspensao_integral')->label('Data da Suspensão Integral')->seconds(false),
                                 DateTimePicker::make('data_homologacao')->label('Data de Liberação de Homologação das Inscrições')->seconds(false),
                                 DateTimePicker::make('data_liberacao_classificacao')->label('Data de Liberação de Critério de Classificação')->seconds(false),
                                 DateTimePicker::make('data_recurso_inicio')->label('Início do Período de Recurso')->seconds(false),

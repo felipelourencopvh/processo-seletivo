@@ -17,8 +17,8 @@ use Filament\Navigation\NavigationItem;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
+use Filament\FontProviders\GoogleFontProvider;
 use Filament\Support\Colors\Color;
-use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -40,7 +40,7 @@ class AppPanelProvider extends PanelProvider
             ->profile()
             ->userMenuItems([
                 MenuItem::make()
-                    ->label('Admin')
+                    ->label('Administração')
                     ->icon('heroicon-o-cog-6-tooth')
                     ->url('/admin')
                     ->visible(fn (): bool => auth()->user()->hasRole('super_admin')),
@@ -53,10 +53,8 @@ class AppPanelProvider extends PanelProvider
                 Pages\Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/App/Widgets'), for: 'App\\Filament\\App\\Widgets')
-            ->widgets([
-                Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
-            ])
+            // Indicadores do processo (app/Filament/App/Widgets) no lugar dos widgets padrão do Filament.
+            ->widgets([])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -81,7 +79,19 @@ class AppPanelProvider extends PanelProvider
                     ->url(static fn () => url(EditProcessoSeletivo::getUrl())),
             ])
             ->viteTheme('resources/css/filament/admin/theme.css')
-            ->colors(['primary' => Color::Pink])
-            ->brandName('STX Gov · Recrutamento');
+            ->colors([
+                'danger'  => Color::Red,
+                'gray'    => Color::Slate,
+                'info'    => Color::Blue,
+                'primary' => Color::Pink,
+                'success' => Color::Emerald,
+                'warning' => Color::Orange,
+            ])
+            ->darkMode(false)
+            ->font('Inter Tight', provider: GoogleFontProvider::class)
+            ->brandName('STX Gov · Recrutamento')
+            ->brandLogo(fn () => view('filament.marca'))
+            ->brandLogoHeight('2.25rem')
+            ->favicon(asset('marca/recrutamento-favicon.svg'));
     }
 }

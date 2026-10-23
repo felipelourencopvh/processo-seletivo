@@ -55,15 +55,15 @@ class CargoResource extends Resource
 
                                         TextInput::make('localidade'),
 
-                                        TextInput::make('descricao'),
+                                        TextInput::make('descricao')->label('Descrição'),
 
-                                        TextInput::make('vagas_ampla')
+                                        TextInput::make('vagas_ampla')->label('Vagas de ampla concorrência')
                                             ->integer(),
 
-                                        TextInput::make('vagas_pcd')
+                                        TextInput::make('vagas_pcd')->label('Vagas PcD')
                                             ->integer(),
 
-                                        TextInput::make('vagas_ppp')
+                                        TextInput::make('vagas_ppp')->label('Vagas PPP')
                                             ->integer(),
 
                                     ]),
