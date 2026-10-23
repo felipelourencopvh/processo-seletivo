@@ -81,7 +81,7 @@ class AppPanelProvider extends PanelProvider
                     ->url(static fn () => url(EditProcessoSeletivo::getUrl())),
             ])
             ->viteTheme('resources/css/filament/admin/theme.css')
-            ->colors(['primary' => Color::Indigo])
+            ->colors(['primary' => Color::Pink])
             ->brandName('STX Gov · Recrutamento');
     }
 }

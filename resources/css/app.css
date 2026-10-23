@@ -221,15 +221,15 @@ a.focus-visible, a:focus-visible {
     border-radius: 0;
 }
 
-/* Identidade STX Gov: retematiza o gov.br Design System (core.css) para o índigo do Recrutamento.
+/* Identidade STX Gov: retematiza o gov.br Design System (core.css) para o rosa do Recrutamento.
    Sobrescreve os tokens de cor primária/interativa usados pelos componentes br-* do site do candidato. */
 :root {
-    --color-primary-default: #4338ca;
-    --color-primary-darken-01: #3730a3;
-    --color-primary-darken-02: #312e81;
-    --color-primary-lighten-01: #6366f1;
-    --color-primary-lighten-02: #c7d2fe;
-    --interactive: #4338ca;
-    --interactive-rgb: 67, 56, 202;
+    --color-primary-default: #db2777;
+    --color-primary-darken-01: #be185d;
+    --color-primary-darken-02: #9d174d;
+    --color-primary-lighten-01: #ec4899;
+    --color-primary-lighten-02: #fbcfe8;
+    --interactive: #db2777;
+    --interactive-rgb: 219, 39, 119;
     --focus: #F36F21;
 }

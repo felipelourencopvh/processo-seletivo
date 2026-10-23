@@ -14,12 +14,12 @@
                   box-shadow: 0 10px 30px -12px rgba(15,23,42,.25); padding: 32px; text-align: center; }
         .marca { display:inline-block; background:#071C2C; color:#fff; font-weight:700; letter-spacing:.08em;
                  font-size:12px; padding:6px 12px; border-radius:999px; }
-        .codigo { font-size: 56px; font-weight: 800; color:#4338ca; margin: 18px 0 4px; line-height:1; }
+        .codigo { font-size: 56px; font-weight: 800; color:#db2777; margin: 18px 0 4px; line-height:1; }
         h1 { font-size: 1.15rem; margin: 0 0 8px; }
         p { color:#475569; line-height:1.6; margin: 0 0 20px; }
-        a.botao { display:inline-block; background:#4338ca; color:#fff; text-decoration:none; font-weight:600;
+        a.botao { display:inline-block; background:#db2777; color:#fff; text-decoration:none; font-weight:600;
                   padding:10px 18px; border-radius:10px; }
-        a.botao:hover { background:#3730a3; }
+        a.botao:hover { background:#be185d; }
     </style>
 </head>
 <body>

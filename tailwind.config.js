@@ -54,7 +54,7 @@ export default {
         themes: [
             {
                 light: {
-                    primary: "#4338ca",
+                    primary: "#db2777",
                     "primary-content": "#FFF",
                     secondary: "#071C2C",
                     "secondary-content": "#FFF",

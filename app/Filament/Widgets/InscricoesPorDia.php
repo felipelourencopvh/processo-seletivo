@@ -29,8 +29,8 @@ class InscricoesPorDia extends ChartWidget
             'datasets' => [[
                 'label'           => 'Inscrições',
                 'data'            => $dias->map(fn (Carbon $d): int => (int) ($porDia[$d->toDateString()] ?? 0))->all(),
-                'borderColor'     => '#4338ca',
-                'backgroundColor' => 'rgba(67, 56, 202, 0.15)',
+                'borderColor'     => '#db2777',
+                'backgroundColor' => 'rgba(219, 39, 119, 0.15)',
                 'fill'            => true,
                 'tension'         => 0.3,
             ]],
