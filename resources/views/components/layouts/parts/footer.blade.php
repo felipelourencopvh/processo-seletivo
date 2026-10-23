@@ -1,8 +1,13 @@
-<footer class="footer footer-center bg-secondary p-4 text-white">
-    <aside class="flex items-center gap-2">
-        <span class="inline-flex items-center rounded-md bg-white/10 px-2 py-0.5 text-sm font-extrabold tracking-tight">
-            STX<span class="text-[#F36F21]">Gov</span>
-        </span>
-        <span class="text-sm text-white/80">Recrutamento © {{ now()->year }}</span>
-    </aside>
+<footer class="bg-[#071c2c] py-10 text-[13.5px] text-[#9fb2c2]">
+    <div class="mx-auto flex w-full max-w-[1240px] flex-wrap items-center justify-between gap-5 px-4 lg:px-8">
+        <x-marca claro />
+        <nav class="flex flex-wrap gap-x-6 gap-y-2">
+            <a href="#" class="hover:text-white">Transparência</a>
+            <a href="#" class="hover:text-white">Ouvidoria</a>
+            <a href="https://falabr.cgu.gov.br/web/login?tipo=8&redirect=/manifestacao/criar?tipo=8" class="hover:text-white">
+                Acesso à informação
+            </a>
+        </nav>
+        <span>Recrutamento © {{ now()->year }}</span>
+    </div>
 </footer>

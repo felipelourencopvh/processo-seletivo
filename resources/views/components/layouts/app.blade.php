@@ -11,15 +11,13 @@
         <script src="https://cdn.jsdelivr.net/npm/photoswipe@5.4.3/dist/umd/photoswipe-lightbox.umd.min.js"></script>
         <link href="https://cdn.jsdelivr.net/npm/photoswipe@5.4.3/dist/photoswipe.min.css" rel="stylesheet" />
 
-        <!-- Fonte Rawline-->
+        <link rel="icon" type="image/svg+xml" href="{{ asset('marca/recrutamento-favicon.svg') }}" />
+        <!-- Fontes do STX Gov (as mesmas do site stxgov.com.br) -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
             rel="stylesheet"
-            href="https://cdngovbr-ds.estaleiro.serpro.gov.br/design-system/fonts/rawline/css/rawline.css"
-        />
-        <!-- Fonte Raleway-->
-        <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900&amp;display=swap"
+            href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Sora:wght@500;600;700;800&display=swap"
         />
         <!-- Fontawesome-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
@@ -27,7 +25,7 @@
         @stack('styles')
         @yield('styles')
     </head>
-    <body id="main" class="min-h-screen font-rawline text-base antialiased">
+    <body id="main" class="flex min-h-screen flex-col font-sans text-base antialiased">
         <x-main>
             <x-slot:sidebar drawer="main-drawer" collapsible class="bg-base-100">
                 <x-layouts.parts.menu />

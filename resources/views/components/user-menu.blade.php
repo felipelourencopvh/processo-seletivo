@@ -1,36 +1,36 @@
 @auth
-    <div class="flex items-center gap-1 px-3 py-2 lg:bg-base-200">
-        <x-mary-icon name="s-user" class="hidden text-green-600 lg:flex" label="Acesso Público" />
-        <div class="divider divider-horizontal hidden lg:flex"></div>
-        <div class="hidden lg:flex">
-            {{ $user->name }}
+    <x-dropdown right>
+        <x-slot:trigger>
+            <button type="button" class="flex items-center gap-2.5 rounded-[10px] border border-white/20 py-1.5 pl-1.5 pr-3 text-white hover:bg-white/10">
+                <span class="avatar">
+                    <span class="w-7 rounded-full">
+                        <img src="{{ $user->avatar_url }}" alt="" />
+                    </span>
+                </span>
+                <span class="hidden max-w-[12rem] truncate text-sm font-semibold sm:inline">{{ $user->name }}</span>
+                <x-mary-icon name="o-chevron-down" class="h-4 w-4 text-white/60" />
+            </button>
+        </x-slot>
+        <div class="w-64 text-[#0b1f2e]">
+            <x-avatar
+                :image="auth()->user()->avatar_url"
+                :title="auth()->user()->name"
+                :subtitle="auth()->user()->email"
+                class="!w-10"
+            />
+            <x-menu-separator />
+            <x-menu-item icon="o-user" :title="__('Minha área')" link="{{ route('candidato.index') }}" />
+            <x-menu-separator />
+            <x-menu-item icon="o-power" :label="'Sair'" link="/logout" no-wire-navigate />
         </div>
-
-        <x-dropdown right>
-            <x-slot:trigger>
-                <div class="bg-primary-500 flex items-center gap-2">
-                    <div class="avatar">
-                        <div @class(['w-7 rounded-full'])>
-                            <img src="{{ $user->avatar_url }}" />
-                        </div>
-                    </div>
-                    <x-mary-icon class="text-primary" name="fas.caret-down" />
-                </div>
-            </x-slot>
-            <div class="w-64">
-                <x-avatar
-                    :image="auth()->user()->avatar_url"
-                    :title="auth()->user()->name"
-                    :subtitle="auth()->user()->email"
-                    class="!w-10"
-                />
-                <x-menu-separator />
-                <x-menu-item icon="o-user" :title="__('Meu Perfil')" link="{{ route('candidato.index') }}" />
-                <x-menu-separator />
-                <x-menu-item icon="o-power" :label="'Sair'" link="/logout" no-wire-navigate />
-            </div>
-        </x-dropdown>
-    </div>
+    </x-dropdown>
 @else
-    <x-button class="btn-primary btn-sm" label="Entrar" icon="o-user" link="/login" />
+    <a
+        wire:navigate
+        href="/login"
+        class="inline-flex items-center gap-2 rounded-[10px] border border-white/20 px-4 py-2.5 text-[14.5px] font-semibold text-white hover:bg-white/10"
+    >
+        <x-mary-icon name="o-user" class="h-4 w-4" />
+        Entrar
+    </a>
 @endauth

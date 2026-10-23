@@ -1,10 +1,13 @@
-@props(['sub' => 'Recrutamento'])
-{{-- Marca do ecossistema STX Gov: selo navy com "Gov" em laranja + o nome do sistema no rosa do Recrutamento. --}}
-<span {{ $attributes->merge(['class' => 'inline-flex items-center gap-2 whitespace-nowrap']) }}>
-    <span class="inline-flex items-center rounded-lg bg-[#071C2C] px-2.5 py-1 text-xl font-extrabold leading-none tracking-tight text-white">
-        STX<span class="text-[#F36F21]">Gov</span>
+@props(['claro' => false, 'sub' => 'Recrutamento'])
+{{-- Marca do ecossistema STX Gov: selo do Recrutamento (fonte: sgpm/docs/marca) + "STX Gov" com o Gov em laranja. --}}
+<span {{ $attributes->merge(['class' => 'inline-flex items-center gap-2.5 whitespace-nowrap']) }}>
+    <img src="{{ asset('marca/recrutamento.svg') }}" alt="" class="h-9 w-9" />
+    <span class="flex flex-col leading-none">
+        <b @class(['font-display text-[19px] font-extrabold', 'text-white' => $claro, 'text-[#071c2c]' => ! $claro])>
+            STX <span class="text-[#f36f21]">Gov</span>
+        </b>
+        @if ($sub)
+            <small @class(['mt-0.5 text-xs font-semibold', 'text-rosa-300' => $claro, 'text-rosa-600' => ! $claro])>{{ $sub }}</small>
+        @endif
     </span>
-    @if ($sub)
-        <span class="text-base font-semibold text-[#db2777]">{{ $sub }}</span>
-    @endif
 </span>

@@ -68,7 +68,7 @@ class () extends Component {
 }
 ?>
 
-<div class="mx-auto mt-20 md:w-5/6">
+<div class="mx-auto mt-8 md:w-5/6">
     <x-card title="Acesso ao sistema" subtitle="Novo Cadastro">
         <x-form wire:submit="save">
             <x-input label="Nome Completo" wire:model.blur="form.name" required />

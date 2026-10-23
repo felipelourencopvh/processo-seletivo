@@ -1,6 +1,6 @@
-<div>
+<div class="flex flex-1 flex-col">
     <x-layouts.parts.header />
-    <main @class(['mx-auto w-full', 'max-w-screen-2xl' => ! $fullWidth])>
+    <main @class(['mx-auto w-full flex-1', 'max-w-[1240px]' => ! $fullWidth])>
         <div
             class="drawer"
             x-data="{
@@ -19,7 +19,7 @@
                 type="checkbox"
                 class="drawer-toggle"
             />
-            <div {{ $content->attributes->class(['drawer-content mx-auto w-full p-5 lg:px-10 lg:py-5']) }}>
+            <div {{ $content->attributes->class(['drawer-content mx-auto w-full px-4 pb-16 pt-8 lg:px-8']) }}>
                 <!-- MAIN CONTENT -->
                 {{ $content }}
             </div>

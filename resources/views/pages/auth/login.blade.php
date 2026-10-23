@@ -43,9 +43,9 @@ class extends Component {
     }
 }; ?>
 
-<div class="mx-auto mt-20 md:w-[32rem]">
-    <div class="card rounded-lg bg-base-100 p-5">
-        <div class="mb-5 w-full text-center text-5xl">Acesso ao sistema</div>
+<div class="mx-auto mt-8 md:w-[32rem]">
+    <div class="card rounded-2xl bg-base-100 p-7 shadow-[0_30px_60px_-30px_#000]">
+        <div class="mb-6 w-full text-center font-display text-3xl font-bold tracking-tight text-[#071c2c]">Acesso ao sistema</div>
         <x-form wire:submit.prevent="login">
             <x-input label="E-Mail" icon="o-envelope" hint="Digite seu email" wire:model="email" />
             <x-password
