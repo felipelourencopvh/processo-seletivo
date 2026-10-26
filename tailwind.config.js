@@ -2,7 +2,9 @@
 import daisyui from "daisyui"
 
 export default {
-    darkMode: false,
+    // O site não tem modo escuro. "class" (e nunca pôr a classe .dark) desliga as variantes dark: do maryUI;
+    // com "false" o Tailwind 3 gerava essas variantes SEM condição e o menu do usuário ficava transparente.
+    darkMode: "class",
     content: [
         "./resources/**/*.blade.php",
         "./resources/**/*.js",
@@ -44,6 +46,9 @@ export default {
                     "accent-content": "#FFF",
                     neutral: "#1e1406",
                     "neutral-content": "#cdcac6",
+                    "base-100": "#ffffff",
+                    "base-200": "#f4f6f8",
+                    "base-300": "#e2e7ef",
                     "base-content": "#0b1f2e",
                     info: "#155BCB",
                     success: "#168821",
