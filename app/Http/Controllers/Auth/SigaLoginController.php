@@ -60,8 +60,10 @@ class SigaLoginController extends Controller
         $request->session()->put('siga.access_token', $pessoa['access_token']);
         $request->session()->put('siga.conferido_em', now()->timestamp);
 
-        // Cai sempre no backoffice global (/admin), que funciona mesmo sem nenhum processo criado.
-        return redirect()->intended($painel->getUrl());
+        // Cai sempre no backoffice global (/admin), que funciona mesmo sem nenhum processo criado. Pela rota do painel,
+        // não por $painel->getUrl(): fora de uma tela do Filament, getUrl() monta o menu do painel "atual" (o /app, que
+        // exige o processo na URL) e dava erro 500 ao entrar pelo SIGA.
+        return redirect()->intended(route('filament.admin.pages.dashboard'));
     }
 
     private function semAcesso(string $titulo, string $mensagem, int $status): Response
