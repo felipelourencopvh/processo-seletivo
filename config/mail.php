@@ -37,6 +37,11 @@ return [
 
     'mailers' => [
 
+        // Central de avisos do SIGA: o e-mail do ecossistema sai pelo servidor configurado lá (App\Mail\SigaTransport).
+        'siga' => [
+            'transport' => 'siga',
+        ],
+
         'smtp' => [
             'transport' => 'smtp',
             'url' => env('MAIL_URL'),

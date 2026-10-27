@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Mail\SigaTransport;
 use Filament\Support\Facades\FilamentView;
 use Filament\View\PanelsRenderHook;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 
@@ -23,16 +25,18 @@ class AppServiceProvider extends ServiceProvider
     /** Bootstrap any application services. */
     public function boot(): void
     {
+        // E-mail pela Central de avisos do SIGA (MAIL_MAILER=siga).
+        Mail::extend('siga', fn () => new SigaTransport());
         Str::macro('cpfCnpjMask', static function (?string $str) {
             if (empty($str)) {
                 return null;
             }
 
             if (strlen($str) === 18) {
-                return '**'.substr($str, 2, 9).'****-**';
+                return '**' . substr($str, 2, 9) . '****-**';
             }
 
-            return '***'.substr($str, 3, 9).'**';
+            return '***' . substr($str, 3, 9) . '**';
         });
 
         Str::macro('cpfReplace', static function (?string $str) {
